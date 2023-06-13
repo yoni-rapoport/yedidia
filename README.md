@@ -9,11 +9,11 @@
    git clone https://github.com/noam-honig/yedidia
    cd yedidia
    npm i 
+   rename db.sample db
+   npm run dev
    ```
-2. לשנות את שם התיקייה `db.sample` ל`db`
-3. `npm run dev`
-4. לפתוח את הקישור הבא - כנציג מחלקה
-   [כניסת נציג מחלקה](http://127.0.0.1:5173/departmentSignIn/cliu4mtuu0001hwuhbn2n85ou)
+2. לפתוח את הקישור הבא - כנציג מחלקה
+   http://127.0.0.1:5173/departmentSignIn/cliu4mtuu0001hwuhbn2n85ou
 
 בשלב הזה תכנסו כמחלקה בבית החולים ויוצגו לכם המטופלים הקיימית במערכת.
 
