@@ -10,7 +10,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Roles } from "./model/roles"
 import PatientInfo from "./components/patientInfo"
 import { departmentsRoute } from "./utils"
-
+import { DrawerComponent } from "./components/DrawerComponent"
+import { ThemeProvider } from "@mui/material"
+import theme from "./theme"
+import { Poster } from "./components/Poster/Poster"
+import { HomePage } from "./components/HomePage"
 function App() {
   const [_, render] = useState<{}>()
   const navigate = useNavigate()
@@ -40,7 +44,7 @@ function App() {
     if (!remult.authenticated()) {
       return (
         <>
-          <h1>נעים להכיר</h1>
+          <HomePage />
           <Link to="/signIn">כניסת מנהל</Link>
         </>
       )
@@ -55,53 +59,59 @@ function App() {
   if (_ === undefined) return <>טוען...</>
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        {remult.authenticated() && (
-          <div>
-            שלום {remult.user?.name} (
-            {remult.isAllowed(Roles.admin)
-              ? "מנהל"
-              : remult.isAllowed(Roles.department)
-              ? "מחלקה"
-              : "מטופל"}
-            ){"  "}
-            <button onClick={signOut}>יציאה</button>
-          </div>
-        )}
-        <Routes>
-          <Route path="/patients/:id" element={<PatientInfo />} />
-          <Route path="/patientSignIn/:id" element={<PatientSignIn />} />
-          <Route path="/departmentSignIn/:id" element={<DepartmentSignIn />} />
-          {remult.isAllowed(Roles.department) && (
-            <Route path={departmentsRoute + ":id"} element={<Patients />} />
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          {remult.authenticated() && (
+            <div>
+              שלום {remult.user?.name} (
+              {remult.isAllowed(Roles.admin)
+                ? "מנהל"
+                : remult.isAllowed(Roles.department)
+                ? "מחלקה"
+                : "מטופל"}
+              ){"  "}
+              <button onClick={signOut}>יציאה</button>
+            </div>
           )}
-          {remult.isAllowed(Roles.admin) && (
-            <>
-              <Route path={departmentsRoute} element={<Departments />} />
-            </>
-          )}
+          <DrawerComponent />
+          <Routes>
+            <Route path="/poster" element={<Poster />} />
+            <Route path="/patients/:id" element={<PatientInfo />} />
+            <Route path="/patientSignIn/:id" element={<PatientSignIn />} />
+            <Route
+              path="/departmentSignIn/:id"
+              element={<DepartmentSignIn />}
+            />
+            {remult.isAllowed(Roles.department) && (
+              <Route path={departmentsRoute + ":id"} element={<Patients />} />
+            )}
+            {remult.isAllowed(Roles.admin) && (
+              <>
+                <Route path={departmentsRoute} element={<Departments />} />
+              </>
+            )}
 
-          <Route
-            path="/signIn"
-            element={
-              <SignIn
-                signedIn={() => {
-                  render({})
-                  navigate(departmentsRoute)
-                }}
-              />
-            }
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
-          <Route path="/" element={defaultRoute} />
-        </Routes>
-      </QueryClientProvider>
+            <Route
+              path="/signIn"
+              element={
+                <SignIn
+                  signedIn={() => {
+                    render({})
+                    navigate(departmentsRoute)
+                  }}
+                />
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/" element={defaultRoute} />
+          </Routes>
+        </QueryClientProvider>
+      </ThemeProvider>
     </>
   )
 }
 
 export default App
-
 
 //TODO - העתק קישור למטופל
 //TODO - ערוך מטופל
