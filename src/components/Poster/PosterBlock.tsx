@@ -3,16 +3,20 @@ interface PosterBlockProps {
   title: string
   icon?: string
   customStyle?: object
+  onClick?: object
+  image? : Array<any>
 }
 
 interface StyledBoxProps extends BoxProps {
   customStyle?: object
 }
 
-export const PosterBlock = ({ title, icon, customStyle }: PosterBlockProps) => {
+export const PosterBlock = ({ title, icon, customStyle, onClick, image =[] }: PosterBlockProps) => {
+  const firstImage = image[0] ?? []
   return (
-    <CustomBox customStyle={customStyle}>
+    <CustomBox customStyle={customStyle} onClick={onClick}>
       {icon && <img height="48" width="48" src={icon} />}
+      {firstImage.image && <img src={firstImage.image} height="50px" />}
       <Typography sx={{ color: "#FFFFFF", textAlign: "center" }}>
         {title}
       </Typography>

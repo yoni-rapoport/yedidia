@@ -9,12 +9,24 @@ import UtilsController from "../server/utilsController"
 import { Roles } from "../model/roles"
 import { departmentsRoute } from "../utils"
 import copy from "copy-to-clipboard"
+import { PosterBlock } from "../components/Poster/PosterBlock"
+import imageIcon from "../assets/imageIcon.svg"
+import editIcon from "../assets/editIcon.svg"
+import { Box, BoxProps, styled } from "@mui/material"
+import CustomModal from "./Modal/CustomModal"
 
 export default function PatientInfo() {
   const params = useParams()
   const [patient, setPatient] = useState<Patient>()
   const [answers, setAnswers] = useState<PatientAnswer[]>()
   const [images, setImages] = useState<PatientImage[]>()
+  const [pageToDisplay, setPageToDisplay] = useState('');
+  const [openModal, setModalOpen] = useState(false);
+  const handleOpenModal = (value) => {
+    setPageToDisplay(value)
+    setModalOpen(true);
+  }
+  const handleCloseModal = () => setModalOpen(false);
 
   useEffect(() => {
     remult.repo(Patient).findId(params.id!).then(setPatient)
@@ -27,6 +39,14 @@ export default function PatientInfo() {
       .find({ where: { patientId: params.id! } })
       .then(setImages)
   }, [])
+
+  const CustomBox = styled(Box)<BoxProps>(() => ({
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: "20px",
+    padding: "0 16px 0 16px",
+  }))
 
   function onFileInput(e: FormEvent<HTMLInputElement>) {
     for (const f of e.currentTarget.files!) {
@@ -104,6 +124,7 @@ export default function PatientInfo() {
           saving.push(remult.repo(PatientImage).save(i))
       }
       await Promise.all(saving)
+      handleCloseModal()
       return true
     } catch (error: any) {
       alert(error.message)
@@ -145,6 +166,39 @@ export default function PatientInfo() {
           חזרה לרשימת המטופלים
         </Link>
       )}
+
+      <CustomModal 
+      open={openModal}
+      handleClose={handleCloseModal}
+      onChange={(e) => setPatient({ ...patient, name: e.target.value })}
+      patient={patient}
+      onInput={(e) => onFileInput(e)}
+      pageToDisplay={pageToDisplay}
+      save={save}
+      images={images}
+      setImages={setImages}
+      />
+
+      <CustomBox>
+        <PosterBlock
+          title={patient.name || 'שם'}
+          onClick={() => handleOpenModal('name')}
+          customStyle={{
+            width: "100%",
+            maxWidth: "100%",
+            height: 56,
+            paddingRight: 16,
+            alignItems: "start",
+          }}
+        />
+        <PosterBlock title="תמונה 1" icon={imageIcon} image={images} onClick={() => handleOpenModal('pic')} />
+        <PosterBlock title="קצת עלי" icon={editIcon} />
+        <PosterBlock title="דברים משמעותיים בשבילי" icon={editIcon} />
+        <PosterBlock title="תמונה 2" icon={imageIcon} />
+        <PosterBlock title="דברים שאני מודה עליהם" icon={editIcon} />
+        <PosterBlock title="תמונה 3" icon={imageIcon} />
+      </CustomBox>
+
       <main>
         <div>
           <label>שם</label>
