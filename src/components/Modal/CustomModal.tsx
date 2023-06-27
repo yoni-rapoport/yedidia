@@ -1,42 +1,32 @@
-import React from "react"
-import Name from "./Name"
 import { Box, Button, Modal } from "@mui/material"
-import Picture from "./Picture"
+import { Picture } from "./Picture"
+import { Text } from "./Text"
+import { ComponentToRender } from "../../types"
+import { ChangeEvent, ReactElement } from "react"
 
-const CustomModal = ({ open, handleClose, onChange, patient, onInput, pageToDisplay, save, images, setImages }) => {
-
+interface CustomModalProps {
+  open: boolean
+  handleClose: () => void
+  children?: ReactElement
+  save: any
+}
+const CustomModal = ({
+  open,
+  handleClose,
+  children,
+  save,
+}: CustomModalProps) => {
   const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "100%",
+    height: "100%",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-  };
-
-  const getPageToDisplay = (key) => {
-    switch (key) {
-      case 'name':
-        return (
-          <Name
-            value={patient.name}
-            onChange={onChange}
-          />
-        )
-      case 'pic':
-        return (
-          <Picture
-            images={images}
-            onInput={onInput}
-            setImages={setImages}
-          />
-        )
-      default:
-        break;
-    }
   }
 
   return (
@@ -47,7 +37,7 @@ const CustomModal = ({ open, handleClose, onChange, patient, onInput, pageToDisp
       aria-describedby="parent-modal-description"
     >
       <Box sx={{ ...style, width: 400 }}>
-        {getPageToDisplay(pageToDisplay)}
+        {children}
         <button onClick={save}>שמור</button>
         <Button onClick={handleClose}>ביטול</Button>
       </Box>

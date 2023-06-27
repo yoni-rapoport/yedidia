@@ -38,9 +38,9 @@ const listToRender: List[] = [
   {
     name: "שאלון",
     icon: <img src={pencil} />,
-    path: "/poster",
+    path: "/",
   },
-  { name: "שיתוף שאלון", icon: <img src={shareIcon} />, path: "/h" },
+  { name: "שיתוף שאלון", icon: <img src={shareIcon} />, path: "/" },
   { name: "על השירות", icon: <img src={serviceIcon} />, path: "/" },
   { name: "תנאי השימוש", icon: <img src={terms} />, path: "/" },
   { name: "יציאה", icon: <img src={exit} />, path: "/" },

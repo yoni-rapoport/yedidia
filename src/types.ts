@@ -8,3 +8,8 @@ declare module "remult" {
     signingIn: boolean
   }
 }
+
+export enum ComponentToRender {
+  TEXT = "TEXT",
+  PICTURE = "PICTURE",
+}

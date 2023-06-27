@@ -75,7 +75,6 @@ function App() {
           )}
           <DrawerComponent />
           <Routes>
-            <Route path="/poster" element={<Poster />} />
             <Route path="/patients/:id" element={<PatientInfo />} />
             <Route path="/patientSignIn/:id" element={<PatientSignIn />} />
             <Route
