@@ -33,7 +33,13 @@ export const PosterBlock = ({
       {icon && !blockImage?.image && (
         <Avatar
           src={icon}
-          sx={{ backgroundColor: "#488EBD", width: 56, height: 56 }}
+          sx={{
+            backgroundColor: "#488EBD",
+            width: 64,
+            height: 64,
+            margin: "auto",
+          }}
+          imgProps={{ sx: { width: "45px", height: "30px" } }}
         />
       )}
       {blockImage?.image && (

@@ -62,7 +62,7 @@ export const Poster = ({
           onClick={() => handleOpenModal(ComponentToRender.TEXT)}
         />
         <PosterBlock
-          title="תמונה 1"
+          title="התמונה שלי"
           icon={imageIcon}
           blockImage={images![0]}
           onClick={() => handleOpenModal(ComponentToRender.PICTURE)}
@@ -73,26 +73,27 @@ export const Poster = ({
           onClick={() => handleOpenModal(ComponentToRender.TEXT)}
         />
         <PosterBlock
-          title="דברים משמעותיים בשבילי"
+          title="חשוב לי"
           icon={editIcon}
           onClick={() => handleOpenModal(ComponentToRender.TEXT)}
         />
         <PosterBlock
-          title="תמונה 2"
+          title="תמונה משמחת"
           icon={imageIcon}
           blockImage={images![1]}
           onClick={() => handleOpenModal(ComponentToRender.PICTURE)}
         />
+
         <PosterBlock
-          title="דברים שאני מודה עליהם"
-          icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT)}
-        />
-        <PosterBlock
-          title="תמונה 3"
+          title="עוד תמונה"
           icon={imageIcon}
           blockImage={images![2]}
           onClick={() => handleOpenModal(ComponentToRender.PICTURE)}
+        />
+        <PosterBlock
+          title="להגיד תודה"
+          icon={editIcon}
+          onClick={() => handleOpenModal(ComponentToRender.TEXT)}
         />
       </CustomBox>
       <CustomModal
@@ -102,6 +103,7 @@ export const Poster = ({
           save()
           setClose()
         }}
+        modalTitle=""
       >
         {getPageToDisplay(componentType)}
       </CustomModal>

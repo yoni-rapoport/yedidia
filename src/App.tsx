@@ -13,7 +13,7 @@ import { departmentsRoute } from "./utils"
 import { DrawerComponent } from "./components/DrawerComponent"
 import { ThemeProvider } from "@mui/material"
 import theme from "./theme"
-import { Poster } from "./components/Poster/Poster"
+
 import { HomePage } from "./components/HomePage"
 function App() {
   const [_, render] = useState<{}>()

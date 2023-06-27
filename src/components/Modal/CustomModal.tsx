@@ -1,20 +1,19 @@
-import { Box, Button, Modal } from "@mui/material"
-import { Picture } from "./Picture"
-import { Text } from "./Text"
-import { ComponentToRender } from "../../types"
-import { ChangeEvent, ReactElement } from "react"
+import { ReactElement } from "react"
+import { Box, Button, Modal, Typography } from "@mui/material"
 
 interface CustomModalProps {
   open: boolean
   handleClose: () => void
   children?: ReactElement
-  save: any
+  save: () => void
+  modalTitle: string
 }
 const CustomModal = ({
   open,
   handleClose,
   children,
   save,
+  modalTitle,
 }: CustomModalProps) => {
   const style = {
     position: "absolute" as "absolute",
@@ -37,6 +36,7 @@ const CustomModal = ({
       aria-describedby="parent-modal-description"
     >
       <Box sx={{ ...style, width: 400 }}>
+        <Typography>{modalTitle}</Typography>
         {children}
         <button onClick={save}>שמור</button>
         <Button onClick={handleClose}>ביטול</Button>

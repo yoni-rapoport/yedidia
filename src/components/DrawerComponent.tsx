@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, useState } from "react"
+import { Fragment, ReactElement } from "react"
 import {
   Box,
   Button,
@@ -10,10 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   styled,
-  alpha,
   Divider,
-  ListProps,
-  BoxProps,
   DrawerProps,
   Typography,
 } from "@mui/material"
@@ -23,10 +20,9 @@ import shareIcon from "../assets/shareIcon.svg"
 import serviceIcon from "../assets/serviceIcon.svg"
 import terms from "../assets/terms.svg"
 import exit from "../assets/exit.svg"
-import { Link, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { CustomLink } from "./Common/CustomLink"
 import useToggle from "../hooks/useToggle"
-type Anchor = "right"
 
 interface List {
   name: string
