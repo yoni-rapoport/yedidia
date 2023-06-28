@@ -1,6 +1,7 @@
 import { ReactElement } from "react"
-import { Box, Button, Modal, Typography } from "@mui/material"
-
+import { Box, Button, IconButton, Modal, Typography } from "@mui/material"
+import rightArrow from "../../assets/rightArrow.svg"
+import { styled } from "@mui/system"
 interface CustomModalProps {
   open: boolean
   handleClose: () => void
@@ -16,7 +17,7 @@ const CustomModal = ({
   modalTitle,
 }: CustomModalProps) => {
   const style = {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -35,14 +36,45 @@ const CustomModal = ({
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
     >
-      <Box sx={{ ...style, width: 400 }}>
-        <Typography>{modalTitle}</Typography>
+      <Box sx={{ ...style }}>
+        <Box
+          sx={{
+            display: "flex",
+            padding: "0.5rem 0.3rem",
+            alignItems: "center",
+
+            borderImage:
+              "linear-gradient(rgba(72, 142, 189, 1), rgba(165, 206, 255, 1)) 0.5",
+            borderWidth: "0 0 2px 0",
+            borderStyle: "solid",
+          }}
+        >
+          <IconButton onClick={handleClose}>
+            <img src={rightArrow} />
+          </IconButton>
+
+          <Typography
+            sx={{
+              fontSize: "24px",
+              letterSpacing: "0.15px",
+            }}
+          >
+            {modalTitle}
+          </Typography>
+        </Box>
         {children}
-        <button onClick={save}>שמור</button>
+        <CustomButton variant="contained" onClick={save}>
+          אישור
+        </CustomButton>
         <Button onClick={handleClose}>ביטול</Button>
       </Box>
     </Modal>
   )
 }
+const CustomButton = styled(Button)(() => ({
+  background: "#007B1B",
+  borderRadius: "2rem",
+  fontSize: "20px",
+}))
 
 export default CustomModal

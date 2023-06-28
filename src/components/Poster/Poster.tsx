@@ -10,6 +10,7 @@ import useToggle from "../../hooks/useToggle"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Text } from "../Modal/Text"
 import { Picture } from "../Modal/Picture"
+import { PatientName } from "../Modal/PatientName"
 interface PosterProps {
   patient?: Patient
   images?: PatientImage[]
@@ -28,9 +29,10 @@ export const Poster = ({
 }: PosterProps) => {
   const { isOpen, setClose, setOpen } = useToggle()
   const [componentType, setComponentType] = useState<ComponentToRender>()
-
-  const handleOpenModal = (type: ComponentToRender) => {
+  const [modalTitle, setModalTitle] = useState<string>("")
+  const handleOpenModal = (type: ComponentToRender, title: string) => {
     setComponentType(type)
+    setModalTitle(title)
     setOpen()
   }
 
@@ -42,6 +44,8 @@ export const Poster = ({
         return (
           <Picture images={images} onInput={onInput} setImages={setImages} />
         )
+      case ComponentToRender.PATIENT_NAME:
+        return <PatientName name={patient?.name} onChange={onChange} />
       default:
         break
     }
@@ -54,46 +58,53 @@ export const Poster = ({
           customStyle={{
             width: "100%",
             maxWidth: "100%",
-            height: 56,
-            paddingRight: 16,
-            alignItems: "start",
+            maxHeight: 56,
+            alignItems: `${patient?.name ? "center" : "flex-start"}`,
+            padding: `${patient?.name ? "0 16px 0 16px" : "0 16px 0 0"}`,
+            justifyContent: `${patient?.name ? "space-between" : ""}`,
           }}
           blockText={patient?.name}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT)}
+          onClick={() => handleOpenModal(ComponentToRender.PATIENT_NAME, "שם")}
         />
         <PosterBlock
           title="התמונה שלי"
           icon={imageIcon}
           blockImage={images![0]}
-          onClick={() => handleOpenModal(ComponentToRender.PICTURE)}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
+          }
         />
         <PosterBlock
           title="קצת עלי"
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT)}
+          onClick={() => handleOpenModal(ComponentToRender.TEXT, "קצת עלי")}
         />
         <PosterBlock
           title="חשוב לי"
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT)}
+          onClick={() => handleOpenModal(ComponentToRender.TEXT, "חשוב לי")}
         />
         <PosterBlock
           title="תמונה משמחת"
           icon={imageIcon}
           blockImage={images![1]}
-          onClick={() => handleOpenModal(ComponentToRender.PICTURE)}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
+          }
         />
 
         <PosterBlock
           title="עוד תמונה"
           icon={imageIcon}
           blockImage={images![2]}
-          onClick={() => handleOpenModal(ComponentToRender.PICTURE)}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
+          }
         />
         <PosterBlock
           title="להגיד תודה"
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT)}
+          onClick={() => handleOpenModal(ComponentToRender.TEXT, "להגיד תודה")}
         />
       </CustomBox>
       <CustomModal
@@ -103,7 +114,7 @@ export const Poster = ({
           save()
           setClose()
         }}
-        modalTitle=""
+        modalTitle={modalTitle}
       >
         {getPageToDisplay(componentType)}
       </CustomModal>
@@ -114,6 +125,6 @@ const CustomBox = styled(Box)<BoxProps>(() => ({
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "space-between",
-  gap: "20px",
-  padding: "0 16px 0 16px",
+  gap: "1rem",
+  padding: "0 1rem 0 1rem",
 }))

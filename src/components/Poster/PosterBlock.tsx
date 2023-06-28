@@ -1,6 +1,6 @@
 import { Avatar, Box, BoxProps, Typography, styled } from "@mui/material"
 import { PatientImage } from "../../model/PatientImage"
-
+import edit from "../../assets/edit.svg"
 interface PosterBlockProps {
   title: string
   icon?: string
@@ -26,6 +26,7 @@ export const PosterBlock = ({
 }: PosterBlockProps) => {
   return (
     <CustomBox
+      blockImage={blockImage}
       blockText={blockText}
       customStyle={customStyle}
       onClick={onClick}
@@ -42,6 +43,7 @@ export const PosterBlock = ({
           imgProps={{ sx: { width: "45px", height: "30px" } }}
         />
       )}
+      {(blockImage?.image || blockText) && <img src={edit} />}
       {blockImage?.image && (
         <img src={blockImage.image} height="100%" width="100%" />
       )}
@@ -57,7 +59,7 @@ const CustomBox = styled(Box, {
   shouldForwardProp: (prop) =>
     prop !== "blockImage" && prop !== "customStyle" && prop !== "blockText",
 })<StyledBoxProps>(({ customStyle, blockImage, blockText }) => ({
-  backgroundColor: `${blockImage || blockText ? "#E5E6EB" : ""}`,
+  backgroundColor: `${blockImage?.image || blockText ? "#E5E6EB" : ""}`,
   borderRadius: "15px",
   boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.25)",
   cursor: "pointer",
@@ -66,8 +68,9 @@ const CustomBox = styled(Box, {
   padding: "16px",
   height: 126,
   display: "flex",
-  flexDirection: "column",
+  flexDirection: `${blockImage?.image || blockText ? "row-reverse" : "column"}`,
   alignItems: "center",
   justifyContent: "center",
+
   ...(customStyle && { ...customStyle }),
 }))

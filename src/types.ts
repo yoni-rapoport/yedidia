@@ -12,4 +12,5 @@ declare module "remult" {
 export enum ComponentToRender {
   TEXT = "TEXT",
   PICTURE = "PICTURE",
+  PATIENT_NAME = "PATIENT_NAME",
 }
