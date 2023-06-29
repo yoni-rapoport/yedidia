@@ -1,7 +1,13 @@
 import { ReactElement } from "react"
-import { Box, Button, IconButton, Modal, Typography } from "@mui/material"
+import {
+  Box,
+  Button,
+  IconButton,
+  Modal,
+  Typography,
+  styled,
+} from "@mui/material"
 import rightArrow from "../../assets/rightArrow.svg"
-import { styled } from "@mui/system"
 interface CustomModalProps {
   open: boolean
   handleClose: () => void
@@ -42,7 +48,6 @@ const CustomModal = ({
             display: "flex",
             padding: "0.5rem 0.3rem",
             alignItems: "center",
-
             borderImage:
               "linear-gradient(rgba(72, 142, 189, 1), rgba(165, 206, 255, 1)) 0.5",
             borderWidth: "0 0 2px 0",
@@ -64,17 +69,24 @@ const CustomModal = ({
         </Box>
         {children}
 
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <ButtonRapper>
           <Button variant="contained" onClick={save}>
             אישור
           </Button>
           <Button variant="outlined" onClick={handleClose}>
             ביטול
           </Button>
-        </Box>
+        </ButtonRapper>
       </Box>
     </Modal>
   )
 }
 
+const ButtonRapper = styled(Box)(() => ({
+  display: "flex",
+  justifyContent: "space-between",
+  backgroundColor: "#F0F0F0",
+  padding: "1rem 1.5rem",
+  borderTop: "1px solid rgba(202, 196, 208, 1)",
+}))
 export default CustomModal
