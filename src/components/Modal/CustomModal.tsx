@@ -63,18 +63,18 @@ const CustomModal = ({
           </Typography>
         </Box>
         {children}
-        <CustomButton variant="contained" onClick={save}>
-          אישור
-        </CustomButton>
-        <Button onClick={handleClose}>ביטול</Button>
+
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Button variant="contained" onClick={save}>
+            אישור
+          </Button>
+          <Button variant="outlined" onClick={handleClose}>
+            ביטול
+          </Button>
+        </Box>
       </Box>
     </Modal>
   )
 }
-const CustomButton = styled(Button)(() => ({
-  background: "#007B1B",
-  borderRadius: "2rem",
-  fontSize: "20px",
-}))
 
 export default CustomModal

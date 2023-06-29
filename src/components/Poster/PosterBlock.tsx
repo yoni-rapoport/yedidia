@@ -1,4 +1,11 @@
-import { Avatar, Box, BoxProps, Typography, styled } from "@mui/material"
+import {
+  Avatar,
+  Box,
+  BoxProps,
+  Typography,
+  styled,
+  useTheme,
+} from "@mui/material"
 import { PatientImage } from "../../model/PatientImage"
 import edit from "../../assets/edit.svg"
 interface PosterBlockProps {
@@ -24,6 +31,7 @@ export const PosterBlock = ({
   blockImage,
   blockText,
 }: PosterBlockProps) => {
+  const theme = useTheme()
   return (
     <CustomBox
       blockImage={blockImage}
@@ -35,7 +43,7 @@ export const PosterBlock = ({
         <Avatar
           src={icon}
           sx={{
-            backgroundColor: "#488EBD",
+            backgroundColor: theme.palette.primary.main,
             width: 64,
             height: 64,
             margin: "auto",
