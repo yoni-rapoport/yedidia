@@ -69,7 +69,7 @@ export const Poster = ({
         <PosterBlock
           title="התמונה שלי"
           icon={imageIcon}
-          blockImage={images![0]}
+          blockImage={images?.[0]}
           onClick={() =>
             handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
           }
@@ -87,7 +87,7 @@ export const Poster = ({
         <PosterBlock
           title="תמונה משמחת"
           icon={imageIcon}
-          blockImage={images![1]}
+          blockImage={images?.[1]}
           onClick={() =>
             handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
           }
@@ -96,7 +96,7 @@ export const Poster = ({
         <PosterBlock
           title="עוד תמונה"
           icon={imageIcon}
-          blockImage={images![2]}
+          blockImage={images?.[2]}
           onClick={() =>
             handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
           }
