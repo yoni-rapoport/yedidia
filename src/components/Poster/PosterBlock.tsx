@@ -8,19 +8,20 @@ import {
 } from "@mui/material"
 import { PatientImage } from "../../model/PatientImage"
 import edit from "../../assets/edit.svg"
+import { Patient } from "../../model/patient"
 interface PosterBlockProps {
   title: string
   icon?: string
   customStyle?: object
   onClick?: () => void
   blockImage?: PatientImage
-  blockText?: string
+  blockText?: Patient
 }
 
 interface StyledBoxProps extends BoxProps {
   customStyle?: object
   blockImage?: PatientImage
-  blockText?: string
+  blockText?: Patient
 }
 
 export const PosterBlock = ({
@@ -57,7 +58,11 @@ export const PosterBlock = ({
       )}
       {!blockImage?.image && (
         <Typography sx={{ textAlign: "center" }}>
-          {blockText ? blockText : title}
+          {blockText?.name ? (
+            <Box>{`${blockText.name} (חדר ${blockText.roomNumber})`}</Box>
+          ) : (
+            title
+          )}
         </Typography>
       )}
     </CustomBox>

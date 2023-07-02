@@ -1,5 +1,6 @@
-import { Box, TextField, Typography } from "@mui/material"
+import { Box, TextField } from "@mui/material"
 import { ChangeEvent } from "react"
+import { ModalTitle } from "../Common/ModalTitle"
 
 interface PatientNameProps {
   name?: string
@@ -14,18 +15,7 @@ export const PatientName = ({
 }: PatientNameProps) => {
   return (
     <>
-      <Typography
-        sx={{
-          textAlign: "center",
-          fontSize: "22px",
-          fontWeight: 500,
-          fontFamily: "Roboto",
-          lineHeight: "30px",
-          letterSpacing: " 0.15px",
-        }}
-      >
-        באיזה שם או כינוי היית רוצה שהצוות הרפואי יקרא לך?
-      </Typography>
+      <ModalTitle title=" באיזה שם או כינוי היית רוצה שהצוות הרפואי יקרא לך?" />
 
       <Box sx={{ padding: "1rem" }}>
         <TextField

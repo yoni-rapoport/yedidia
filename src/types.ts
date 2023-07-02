@@ -13,4 +13,5 @@ export enum ComponentToRender {
   TEXT = "TEXT",
   PICTURE = "PICTURE",
   PATIENT_NAME = "PATIENT_NAME",
+  SAY_THANKS = "SAY_THANKS",
 }

@@ -11,6 +11,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Text } from "../Modal/Text"
 import { Picture } from "../Modal/Picture"
 import { PatientName } from "../Modal/PatientName"
+import { SayThanks } from "../Modal/SayThanks"
 interface PosterProps {
   patient?: Patient
   images?: PatientImage[]
@@ -45,7 +46,15 @@ export const Poster = ({
           <Picture images={images} onInput={onInput} setImages={setImages} />
         )
       case ComponentToRender.PATIENT_NAME:
-        return <PatientName name={patient?.name} onChange={onChange} />
+        return (
+          <PatientName
+            name={patient?.name}
+            roomNumber={patient?.roomNumber}
+            onChange={onChange}
+          />
+        )
+      case ComponentToRender.SAY_THANKS:
+        return <SayThanks value={patient?.sayThanks} onChange={onChange} />
       default:
         break
     }
@@ -63,7 +72,7 @@ export const Poster = ({
             padding: `${patient?.name ? "0 16px 0 16px" : "0 16px 0 16px"}`,
             justifyContent: `${patient?.name ? "space-between" : "center"}`,
           }}
-          blockText={patient?.name}
+          blockText={patient}
           onClick={() => handleOpenModal(ComponentToRender.PATIENT_NAME, "שם")}
         />
         <PosterBlock
@@ -104,7 +113,9 @@ export const Poster = ({
         <PosterBlock
           title="להגיד תודה"
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT, "להגיד תודה")}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.SAY_THANKS, "להגיד תודה")
+          }
         />
       </CustomBox>
       <CustomModal

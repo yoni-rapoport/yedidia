@@ -51,6 +51,10 @@ export class Patient {
   id = ""
   @Fields.string({ validate: Validators.required })
   name = ""
+  @Fields.number()
+  roomNumber = undefined
+  @Fields.string()
+  sayThanks = ""
   @Fields.string()
   departmentId = ""
   @Fields.string()
