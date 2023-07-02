@@ -56,7 +56,7 @@ export const PosterBlock = ({
         <img src={blockImage.image} height="100%" width="100%" />
       )}
       {!blockImage?.image && (
-        <Typography sx={{ textAlign: "center", fontFamily: "Roboto" }}>
+        <Typography sx={{ textAlign: "center" }}>
           {blockText ? blockText : title}
         </Typography>
       )}

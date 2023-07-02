@@ -21,6 +21,16 @@ const theme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "20px",
+          color: "#1D1B20",
+          fontWeight: 400,
+          lineHeight: "24px",
+        },
+      },
+    },
   },
   palette: {
     primary: {

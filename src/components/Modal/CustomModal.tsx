@@ -33,6 +33,9 @@ const CustomModal = ({
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   }
 
   return (
@@ -43,32 +46,33 @@ const CustomModal = ({
       aria-describedby="parent-modal-description"
     >
       <Box sx={{ ...style }}>
-        <Box
-          sx={{
-            display: "flex",
-            padding: "0.5rem 0.3rem",
-            alignItems: "center",
-            borderImage:
-              "linear-gradient(rgba(72, 142, 189, 1), rgba(165, 206, 255, 1)) 0.5",
-            borderWidth: "0 0 2px 0",
-            borderStyle: "solid",
-          }}
-        >
-          <IconButton onClick={handleClose}>
-            <img src={rightArrow} />
-          </IconButton>
-
-          <Typography
+        <Box>
+          <Box
             sx={{
-              fontSize: "24px",
-              letterSpacing: "0.15px",
+              display: "flex",
+              padding: "0.5rem 0.3rem",
+              alignItems: "center",
+              borderImage:
+                "linear-gradient(rgba(72, 142, 189, 1), rgba(165, 206, 255, 1)) 0.5",
+              borderWidth: "0 0 2px 0",
+              borderStyle: "solid",
             }}
           >
-            {modalTitle}
-          </Typography>
-        </Box>
-        {children}
+            <IconButton onClick={handleClose}>
+              <img src={rightArrow} />
+            </IconButton>
 
+            <Typography
+              sx={{
+                fontSize: "24px",
+                letterSpacing: "0.15px",
+              }}
+            >
+              {modalTitle}
+            </Typography>
+          </Box>
+          <Box sx={{ padding: "0.1rem 1.875rem" }}>{children}</Box>
+        </Box>
         <ButtonRapper>
           <Button variant="contained" onClick={save}>
             אישור

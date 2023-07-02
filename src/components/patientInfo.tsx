@@ -151,7 +151,7 @@ export default function PatientInfo() {
 
       <Poster
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setPatient({ ...patient, name: e.target.value })
+          setPatient({ ...patient, [e.target.name]: e.target.value })
         }
         patient={patient}
         images={images}
@@ -160,64 +160,6 @@ export default function PatientInfo() {
         setImages={setImages}
       />
       <main>
-        {/* <div>
-          <label>שם</label>
-          <input
-            type="text"
-            value={patient.name}
-            onChange={(e) => setPatient({ ...patient, name: e.target.value })}
-          />
-        </div>
-        {answers.map((info, i) => {
-          function setValue(value: Partial<PatientAnswer>) {
-            const newAnswers = [...answers!]
-            newAnswers[i] = { ...info, ...value }
-            setAnswers(newAnswers)
-          }
-
-          return (
-            <section key={i}>
-              <div>
-                <label>שאלה </label>
-                <input
-                  value={info.title}
-                  onChange={(e) => setValue({ title: e.target.value })}
-                />
-              </div>
-              <div>
-                <label>תשובה </label>
-                <textarea
-                  value={info.text}
-                  onChange={(e) => setValue({ text: e.target.value })}
-                ></textarea>
-              </div>
-            </section>
-          )
-        })}
-        {!images && <>טוען תמונות...</>}
-        {images && images.filter((x) => !x.image).length > 0 && (
-          <input
-            type="file"
-            onInput={(e) => onFileInput(e)}
-            accept="image/*"
-            multiple={true}
-          />
-        )}
-        {images
-          ?.filter((x) => x.image)
-          .map((image) => {
-            function deleteImage() {
-              setImages((images) =>
-                images!.map((i) => (i === image ? { ...image, image: "" } : i))
-              )
-            }
-            return (
-              <div key={image.id}>
-                <img src={image.image} height="50px" />
-                <button onClick={deleteImage}>מחק תמונה</button>
-              </div>
-            )
-          })} */}
         <div>
           <button onClick={save}>שמור</button>
           {remult.isAllowed(Roles.department) && (

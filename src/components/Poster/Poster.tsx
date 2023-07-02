@@ -60,8 +60,8 @@ export const Poster = ({
             maxWidth: "100%",
             maxHeight: 56,
             alignItems: `${patient?.name ? "center" : "flex-start"}`,
-            padding: `${patient?.name ? "0 16px 0 16px" : "0 16px 0 0"}`,
-            justifyContent: `${patient?.name ? "space-between" : ""}`,
+            padding: `${patient?.name ? "0 16px 0 16px" : "0 16px 0 16px"}`,
+            justifyContent: `${patient?.name ? "space-between" : "center"}`,
           }}
           blockText={patient?.name}
           onClick={() => handleOpenModal(ComponentToRender.PATIENT_NAME, "שם")}

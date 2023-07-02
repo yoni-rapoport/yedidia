@@ -3,10 +3,15 @@ import { ChangeEvent } from "react"
 
 interface PatientNameProps {
   name?: string
+  roomNumber?: number
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const PatientName = ({ onChange, name }: PatientNameProps) => {
+export const PatientName = ({
+  onChange,
+  name,
+  roomNumber,
+}: PatientNameProps) => {
   return (
     <>
       <Typography
@@ -21,21 +26,28 @@ export const PatientName = ({ onChange, name }: PatientNameProps) => {
       >
         באיזה שם או כינוי היית רוצה שהצוות הרפואי יקרא לך?
       </Typography>
-      {name}
+
       <Box sx={{ padding: "1rem" }}>
         <TextField
           label="השם או הכינוי יופיעו בכותרת הפוסטר"
           variant="filled"
           color="primary"
           fullWidth
-          margin="dense"
+          margin="normal"
+          value={name}
+          name="name"
+          onChange={onChange}
         />
         <TextField
           label="מספר חדר"
           variant="filled"
           color="primary"
           fullWidth
-          margin="dense"
+          margin="normal"
+          onChange={onChange}
+          name="roomNumber"
+          type="number"
+          value={roomNumber}
         />
       </Box>
     </>
