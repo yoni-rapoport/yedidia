@@ -9,12 +9,22 @@ interface SayThanksProps {
 }
 export const SayThanks = ({ value, onChange }: SayThanksProps) => {
   return (
-    <Box>
+    <>
       <ModalTitle title="על אילו דברים היית רוצה להגיד תודה? למי מגיעה תודה ממך?" />
 
-      <Box sx={{ padding: "1rem" }}>
-        <TextFieldCounter onChange={onChange} value={value} />
-      </Box>
-    </Box>
+      <TextFieldCounter
+        name="sayThanks"
+        label="להגיד תודה"
+        minRows={15}
+        maxRows={15}
+        rows={15}
+        fullWidth
+        inputProps={{ maxLength: 500 }}
+        onChange={onChange}
+        value={value}
+        multiline
+        helperText="למשל: למשפחה, לחברים, על הטיפול המסור של..."
+      />
+    </>
   )
 }

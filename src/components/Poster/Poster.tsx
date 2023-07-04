@@ -12,6 +12,8 @@ import { Text } from "../Modal/Text"
 import { Picture } from "../Modal/Picture"
 import { PatientName } from "../Modal/PatientName"
 import { SayThanks } from "../Modal/SayThanks"
+import { AboutMe } from "../Modal/AboutMe"
+import { ImportantToMe } from "../Modal/ImportantToMe"
 interface PosterProps {
   patient?: Patient
   images?: PatientImage[]
@@ -55,6 +57,12 @@ export const Poster = ({
         )
       case ComponentToRender.SAY_THANKS:
         return <SayThanks value={patient?.sayThanks} onChange={onChange} />
+      case ComponentToRender.ABOUT_ME:
+        return <AboutMe value={patient?.aboutMe} onChange={onChange} />
+      case ComponentToRender.IMPORTANT_TO_ME:
+        return (
+          <ImportantToMe value={patient?.importantToMe} onChange={onChange} />
+        )
       default:
         break
     }
@@ -86,12 +94,14 @@ export const Poster = ({
         <PosterBlock
           title="קצת עלי"
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT, "קצת עלי")}
+          onClick={() => handleOpenModal(ComponentToRender.ABOUT_ME, "קצת עלי")}
         />
         <PosterBlock
           title="חשוב לי"
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.TEXT, "חשוב לי")}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.IMPORTANT_TO_ME, "חשוב לי")
+          }
         />
         <PosterBlock
           title="תמונה משמחת"

@@ -57,13 +57,13 @@ export const PosterBlock = ({
         <img src={blockImage.image} height="100%" width="100%" />
       )}
       {!blockImage?.image && (
-        <Typography sx={{ textAlign: "center" }}>
+        <Box sx={{ textAlign: "center" }}>
           {blockText?.name ? (
             <Box>{`${blockText.name} (חדר ${blockText.roomNumber})`}</Box>
           ) : (
             title
           )}
-        </Typography>
+        </Box>
       )}
     </CustomBox>
   )

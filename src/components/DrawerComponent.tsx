@@ -88,7 +88,7 @@ export const DrawerComponent = () => {
       <Button onClick={toggle}>
         <MenuIcon />
       </Button>
-      <CustomDrawer anchor={"right"} open={isOpen} onClose={toggle}>
+      <CustomDrawer anchor={"left"} open={isOpen} onClose={toggle}>
         {renderList()}
       </CustomDrawer>
     </Fragment>
@@ -107,7 +107,7 @@ const CustomListItemButton = styled(ListItemButton, {
 
 const CustomDrawer = styled(Drawer)<DrawerProps>(({}) => ({
   " .MuiPaper-elevation": {
-    borderRadius: "16px 0 0 16px",
+    borderRadius: "0 16px 16px 16px",
     padding: 12,
   },
 }))

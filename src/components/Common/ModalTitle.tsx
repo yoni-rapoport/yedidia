@@ -12,6 +12,7 @@ export const ModalTitle = ({ title }: ModalTitleProps) => (
       fontFamily: "Roboto",
       lineHeight: "30px",
       letterSpacing: " 0.15px",
+      padding: "1.3rem 0",
     }}
   >
     {title}
