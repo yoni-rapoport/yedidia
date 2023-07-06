@@ -13,8 +13,6 @@ export const AboutMe = ({ value, onChange }: AboutMeProps) => (
     <TextFieldCounter
       name="aboutMe"
       label="קצת עלי"
-      minRows={15}
-      maxRows={15}
       rows={15}
       fullWidth
       inputProps={{ maxLength: 500 }}
