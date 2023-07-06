@@ -11,7 +11,7 @@ export const ImportantToMe = ({ value, onChange }: ImportantToMeProps) => (
   <>
     <ModalTitle title="מה משמעותי בשבילך?" />
     <TextFieldCounter
-      name="aboutMe"
+      name="importantToMe"
       label="חשוב לי"
       rows={15}
       fullWidth

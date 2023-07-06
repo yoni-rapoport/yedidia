@@ -12,6 +12,7 @@ import { PatientImage } from "../../model/PatientImage"
 import edit from "../../assets/edit.svg"
 import check from "../../assets/check.svg"
 import { modalTitles } from "../../consts"
+import { TypographyProps } from "@mui/system"
 interface PosterBlockProps {
   title: string
   icon?: string
@@ -39,17 +40,7 @@ export const PosterBlock = ({
     if (blockText) {
       return (
         <Box>
-          <Typography
-            sx={{
-              width: "112px",
-              overflow: "hidden",
-              display: "-webkit-box",
-              WebkitLineClamp: "3",
-              WebkitBoxOrient: "vertical",
-            }}
-          >
-            {blockText}
-          </Typography>
+          <DisplayTextOnBlock title={title}>{blockText}</DisplayTextOnBlock>
         </Box>
       )
     }
@@ -143,4 +134,15 @@ const CustomAvatar = styled(Avatar)<AvatarProps>(({ theme }) => ({
   width: 64,
   height: 64,
   margin: "auto",
+}))
+
+const DisplayTextOnBlock = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "title",
+})<TypographyProps>(({ title }) => ({
+  width: "112px",
+  overflow: "hidden",
+  display: "-webkit-box",
+  WebkitLineClamp: "3",
+  WebkitBoxOrient: "vertical",
+  height: `${title !== modalTitles.name ? "72px" : "unset"}`,
 }))

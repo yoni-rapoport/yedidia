@@ -95,10 +95,12 @@ export const Poster = ({
           }
         />
         <PosterBlock
-          title="קצת עלי"
+          title={modalTitles.aboutMe}
           icon={editIcon}
           blockText={patient?.aboutMe}
-          onClick={() => handleOpenModal(ComponentToRender.ABOUT_ME, "קצת עלי")}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.ABOUT_ME, modalTitles.aboutMe)
+          }
         />
         <PosterBlock
           title={modalTitles.importantToMe}
