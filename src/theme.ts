@@ -2,6 +2,9 @@ import { createTheme } from "@mui/material"
 
 const theme = createTheme({
   direction: "rtl",
+  typography: {
+    fontFamily: ["Roboto"].join(","),
+  },
   components: {
     MuiListItemButton: {},
     MuiButton: {

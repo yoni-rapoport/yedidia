@@ -9,7 +9,7 @@ export const ModalTitle = ({ title }: ModalTitleProps) => (
       textAlign: "center",
       fontSize: "22px",
       fontWeight: 500,
-      fontFamily: "Roboto",
+
       lineHeight: "30px",
       letterSpacing: " 0.15px",
       padding: "1.3rem 0",

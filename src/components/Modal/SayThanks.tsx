@@ -15,8 +15,6 @@ export const SayThanks = ({ value, onChange }: SayThanksProps) => {
       <TextFieldCounter
         name="sayThanks"
         label="להגיד תודה"
-        minRows={15}
-        maxRows={15}
         rows={15}
         fullWidth
         inputProps={{ maxLength: 500 }}

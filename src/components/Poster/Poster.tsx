@@ -14,6 +14,7 @@ import { PatientName } from "../Modal/PatientName"
 import { SayThanks } from "../Modal/SayThanks"
 import { AboutMe } from "../Modal/AboutMe"
 import { ImportantToMe } from "../Modal/ImportantToMe"
+import { modalTitles } from "../../consts"
 interface PosterProps {
   patient?: Patient
   images?: PatientImage[]
@@ -71,7 +72,7 @@ export const Poster = ({
     <>
       <CustomBox>
         <PosterBlock
-          title="שם (או כינוי)"
+          title={modalTitles.name}
           customStyle={{
             width: "100%",
             maxWidth: "100%",
@@ -80,51 +81,64 @@ export const Poster = ({
             padding: `${patient?.name ? "0 16px 0 16px" : "0 16px 0 16px"}`,
             justifyContent: `${patient?.name ? "space-between" : "center"}`,
           }}
-          blockText={patient}
-          onClick={() => handleOpenModal(ComponentToRender.PATIENT_NAME, "שם")}
+          blockText={`${patient?.name} (חדר ${patient?.roomNumber})`}
+          onClick={() =>
+            handleOpenModal(ComponentToRender.PATIENT_NAME, modalTitles.name)
+          }
         />
         <PosterBlock
-          title="התמונה שלי"
+          title={modalTitles.myPicture}
           icon={imageIcon}
           blockImage={images?.[0]}
           onClick={() =>
-            handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
+            handleOpenModal(ComponentToRender.PICTURE, modalTitles.myPicture)
           }
         />
         <PosterBlock
-          title="קצת עלי"
+          title={modalTitles.aboutMe}
           icon={editIcon}
-          onClick={() => handleOpenModal(ComponentToRender.ABOUT_ME, "קצת עלי")}
-        />
-        <PosterBlock
-          title="חשוב לי"
-          icon={editIcon}
+          blockText={patient?.aboutMe}
           onClick={() =>
-            handleOpenModal(ComponentToRender.IMPORTANT_TO_ME, "חשוב לי")
+            handleOpenModal(ComponentToRender.ABOUT_ME, modalTitles.aboutMe)
           }
         />
         <PosterBlock
-          title="תמונה משמחת"
+          title={modalTitles.importantToMe}
+          icon={editIcon}
+          blockText={patient?.importantToMe}
+          onClick={() =>
+            handleOpenModal(
+              ComponentToRender.IMPORTANT_TO_ME,
+              modalTitles.importantToMe
+            )
+          }
+        />
+        <PosterBlock
+          title={modalTitles.myPicture}
           icon={imageIcon}
           blockImage={images?.[1]}
           onClick={() =>
-            handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
+            handleOpenModal(ComponentToRender.PICTURE, modalTitles.myPicture)
           }
         />
 
         <PosterBlock
-          title="עוד תמונה"
+          title={modalTitles.anotherPicture}
           icon={imageIcon}
           blockImage={images?.[2]}
           onClick={() =>
-            handleOpenModal(ComponentToRender.PICTURE, "התמונה שלי")
+            handleOpenModal(
+              ComponentToRender.PICTURE,
+              modalTitles.anotherPicture
+            )
           }
         />
         <PosterBlock
-          title="להגיד תודה"
+          title={modalTitles.sayThanks}
           icon={editIcon}
+          blockText={patient?.sayThanks}
           onClick={() =>
-            handleOpenModal(ComponentToRender.SAY_THANKS, "להגיד תודה")
+            handleOpenModal(ComponentToRender.SAY_THANKS, modalTitles.sayThanks)
           }
         />
       </CustomBox>
@@ -145,7 +159,7 @@ export const Poster = ({
 const CustomBox = styled(Box)<BoxProps>(() => ({
   display: "flex",
   flexWrap: "wrap",
-  justifyContent: "space-between",
+  justifyContent: "center",
   gap: "1rem",
   padding: "0 1rem 0 1rem",
 }))
