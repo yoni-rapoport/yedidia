@@ -36,6 +36,7 @@ const CustomModal = ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    textAlign: "center",
   }
 
   return (
