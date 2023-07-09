@@ -141,3 +141,4 @@ export const Picture = ({ images, onInput, setImages }: PictureProps) => {
     </>
   )
 }
+//[ ] on the small - make sure the also add padding to the right, as in the figma
