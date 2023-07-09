@@ -1,9 +1,9 @@
 import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react"
 import { PatientImage } from "../../model/PatientImage"
-import { WrapperBox } from "../Poster/PosterBlock"
 import { Avatar, Box, Typography, styled } from "@mui/material"
 import imageIcon from "../../assets/imageIcon.svg"
 import theme from "../../theme"
+import { StyledTile } from "../../sharedStyle"
 
 interface PictureProps {
   images?: PatientImage[] | undefined
@@ -41,9 +41,8 @@ export const Picture = ({ images, onInput, setImages }: PictureProps) => {
       <Typography fontSize={22}>
         מומלץ לבחור בתמונה שמייצגת אותך היטב
       </Typography>
-      <WrapperBox
+      <StyledTile
         customStyle={{
-          display: "flex",
           marginLeft: "auto",
           marginRight: "auto",
           width: 300,
@@ -131,7 +130,7 @@ export const Picture = ({ images, onInput, setImages }: PictureProps) => {
               </div>
             )
           })}
-      </WrapperBox>
+      </StyledTile>
       {!isImageExits && (
         <Typography fontSize={22}>
           לא מצאת? אפשר אפשר לשלוח בקשה לאדם אחר שיעלה תמונה.

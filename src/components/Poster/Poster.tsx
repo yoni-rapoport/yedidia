@@ -75,16 +75,18 @@ export const Poster = ({
           title={modalTitles.name}
           customStyle={{
             width: "100%",
-            maxWidth: "100%",
+            maxWidth: "328px",
             maxHeight: 56,
             alignItems: `${patient?.name ? "center" : "flex-start"}`,
-            padding: `${patient?.name ? "0 16px 0 16px" : "0 16px 0 16px"}`,
             justifyContent: `${patient?.name ? "space-between" : "center"}`,
           }}
-          blockText={`${patient?.name} (חדר ${patient?.roomNumber})`}
+          blockText={
+            patient?.name ? `${patient?.name} (חדר ${patient?.roomNumber})` : ""
+          }
           onClick={() =>
             handleOpenModal(ComponentToRender.PATIENT_NAME, modalTitles.name)
           }
+          className="grid-item"
         />
         <PosterBlock
           title={modalTitles.myPicture}
@@ -93,6 +95,7 @@ export const Poster = ({
           onClick={() =>
             handleOpenModal(ComponentToRender.PICTURE, modalTitles.myPicture)
           }
+          className="grid-item"
         />
         <PosterBlock
           title={modalTitles.aboutMe}
@@ -101,6 +104,7 @@ export const Poster = ({
           onClick={() =>
             handleOpenModal(ComponentToRender.ABOUT_ME, modalTitles.aboutMe)
           }
+          className="grid-item"
         />
         <PosterBlock
           title={modalTitles.importantToMe}
@@ -112,6 +116,7 @@ export const Poster = ({
               modalTitles.importantToMe
             )
           }
+          className="grid-item"
         />
         <PosterBlock
           title={modalTitles.myPicture}
@@ -120,6 +125,7 @@ export const Poster = ({
           onClick={() =>
             handleOpenModal(ComponentToRender.PICTURE, modalTitles.myPicture)
           }
+          className="grid-item"
         />
 
         <PosterBlock
@@ -132,6 +138,7 @@ export const Poster = ({
               modalTitles.anotherPicture
             )
           }
+          className="grid-item"
         />
         <PosterBlock
           title={modalTitles.sayThanks}
@@ -140,6 +147,7 @@ export const Poster = ({
           onClick={() =>
             handleOpenModal(ComponentToRender.SAY_THANKS, modalTitles.sayThanks)
           }
+          className="grid-item"
         />
       </CustomBox>
       <CustomModal
@@ -157,9 +165,12 @@ export const Poster = ({
   )
 }
 const CustomBox = styled(Box)<BoxProps>(() => ({
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "center",
+  display: "grid",
   gap: "1rem",
+  justifyContent: "center",
   padding: "0 1rem 0 1rem",
+  gridTemplateColumns: "min-content",
+  ".grid-item:first-of-type": {
+    gridColumn: "1 / span 2",
+  },
 }))

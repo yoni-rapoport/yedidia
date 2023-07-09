@@ -51,8 +51,8 @@ export class Patient {
   id = ""
   @Fields.string({ validate: Validators.required })
   name = ""
-  @Fields.number()
-  roomNumber = undefined
+  @Fields.string({ validate: Validators.required })
+  roomNumber = ""
   @Fields.string()
   sayThanks = ""
   @Fields.string()

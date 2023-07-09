@@ -1,10 +1,10 @@
-import { Box, TextField } from "@mui/material"
+import { TextField } from "@mui/material"
 import { ChangeEvent } from "react"
 import { ModalTitle } from "../Common/ModalTitle"
 
 interface PatientNameProps {
   name?: string
-  roomNumber?: number
+  roomNumber?: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -35,7 +35,7 @@ export const PatientName = ({
         margin="normal"
         onChange={onChange}
         name="roomNumber"
-        type="number"
+        type="text"
         value={roomNumber}
       />
     </>

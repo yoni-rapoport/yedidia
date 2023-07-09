@@ -2,17 +2,16 @@ import {
   Avatar,
   AvatarProps,
   Box,
-  BoxProps,
   Divider,
   Typography,
   styled,
-  useTheme,
 } from "@mui/material"
 import { PatientImage } from "../../model/PatientImage"
 import edit from "../../assets/edit.svg"
 import check from "../../assets/check.svg"
 import { modalTitles } from "../../consts"
 import { TypographyProps } from "@mui/system"
+import { StyledTile } from "../../sharedStyle"
 interface PosterBlockProps {
   title: string
   icon?: string
@@ -20,12 +19,7 @@ interface PosterBlockProps {
   onClick?: () => void
   blockImage?: PatientImage
   blockText?: string
-}
-
-interface StyledBoxProps extends BoxProps {
-  customStyle?: object
-  blockImage?: PatientImage
-  blockText?: string
+  className?: string
 }
 
 export const PosterBlock = ({
@@ -35,11 +29,18 @@ export const PosterBlock = ({
   onClick,
   blockImage,
   blockText,
+  className,
 }: PosterBlockProps) => {
   const renderContent = () => {
     if (blockText) {
       return (
-        <Box>
+        <Box display="flex">
+          {title === modalTitles.name && (
+            <Box sx={{ paddingRight: "0.2rem" }}>
+              {" "}
+              <img src={check} />
+            </Box>
+          )}
           <DisplayTextOnBlock title={title}>{blockText}</DisplayTextOnBlock>
         </Box>
       )
@@ -50,11 +51,12 @@ export const PosterBlock = ({
     return <Typography>{title}</Typography>
   }
   return (
-    <WrapperBox
+    <StyledTile
       blockImage={blockImage}
       blockText={blockText}
       customStyle={customStyle}
       onClick={onClick}
+      className={className}
     >
       {icon && !(blockImage?.image || blockText) && (
         <CustomAvatar
@@ -69,7 +71,7 @@ export const PosterBlock = ({
           width: " 100%",
         }}
       >
-        {(blockImage?.image || blockText) && title !== modalTitles.name && (
+        {blockText && title !== modalTitles.name && (
           <>
             <Box
               sx={{
@@ -104,31 +106,9 @@ export const PosterBlock = ({
           {(blockImage?.image || blockText) && <img src={edit} />}
         </Box>
       </Box>
-    </WrapperBox>
+    </StyledTile>
   )
 }
-
-export const WrapperBox = styled(Box, {
-  shouldForwardProp: (prop) =>
-    prop !== "blockImage" && prop !== "customStyle" && prop !== "blockText",
-})<StyledBoxProps>(({ customStyle, blockImage, blockText }) => {
-  return {
-    backgroundColor: `${blockImage?.image || blockText ? "#E5E6EB" : ""}`,
-    borderRadius: "15px",
-    boxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.25)",
-    cursor: "pointer",
-    maxWidth: "156px",
-    maxHeight: "126px",
-    height: "126px",
-    width: "156px",
-    display: "flex",
-    flexDirection: `${
-      blockImage?.image || blockText ? "row-reverse" : "column"
-    }`,
-    alignItems: "center",
-    ...(customStyle && { ...customStyle }),
-  }
-})
 
 const CustomAvatar = styled(Avatar)<AvatarProps>(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -140,7 +120,7 @@ const CustomAvatar = styled(Avatar)<AvatarProps>(({ theme }) => ({
 const DisplayTextOnBlock = styled(Typography, {
   shouldForwardProp: (prop) => prop !== "title",
 })<TypographyProps>(({ title }) => ({
-  width: "112px",
+  width: `${title !== modalTitles.name ? "112px" : ""}`,
   overflow: "hidden",
   display: "-webkit-box",
   WebkitLineClamp: "3",
