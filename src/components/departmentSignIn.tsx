@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { remult } from "remult"
 import { Roles } from "../model/roles"
@@ -29,22 +29,29 @@ export function DepartmentSignIn() {
 export function PatientSignIn() {
   const params = useParams()
   const navigate = useNavigate()
+  const [patientId, setPatientId] = useState('')
+  //[ ] - add another page for concent 
   useEffect(() => {
     ;(async () => {
       if (remult.isAllowed(Roles.department)) {
         const patient = await remult.repo(Patient).findFirst({ url: params.id })
         if (patient) {
-          navigate("/patients/" + patient.id)
+          setPatientId(patient.id)
+          
           return
         }
       } else {
         const user = await SignInController.patientSignIn(params.id!)
         remult.user = user
+        setPatientId(remult.user.id)
         //[ ] - instead of automatically navigating to patients/ show the naim leakir landing page
-        navigate("/patients/" + remult.user.id)
       }
     })()
   }, [])
-  return <>נכנס כמטופל</>
+  if (!patientId)
+    return <>טוען</>
+    return <>
+    <h1>נעים להכיר</h1>
+    <button onClick={()=>navigate("/patients/" + patientId)}>בואו נתחיל</button></>
 }
-console.log(PatientSignIn.name)
+
