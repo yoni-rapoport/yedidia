@@ -15,7 +15,10 @@ export const HomePage = () => {
         alignItems: "center",
       }}
     >
-      <Title fontFamily={"Spacer"}>{allText.niceToMeetTitle}</Title>
+      {
+        //[ ] - figure out why font is wrong
+      }
+      <Title >{allText.niceToMeetTitle}</Title>
       <CustomParagraph>{allText.niceToMeet1}</CustomParagraph>
       <CustomParagraph>
         {allText.niceToMeet2}

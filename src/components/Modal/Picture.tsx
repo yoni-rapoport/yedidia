@@ -5,6 +5,7 @@ import { Avatar, Box, Typography, styled } from "@mui/material"
 import imageIcon from "../../assets/imageIcon.svg"
 import theme from "../../theme"
 
+//[ ] add loader while image is loaded from the server
 interface PictureProps {
   images?: PatientImage[] | undefined
   onInput: (e: ChangeEvent<HTMLInputElement>) => void
