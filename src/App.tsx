@@ -49,6 +49,9 @@ function App() {
       return (
         <>
           <HomePage />
+          {
+            //[ ] - move to side bar bottom
+          }
           <Link to="/signIn">כניסת מנהל</Link>
         </>
       )

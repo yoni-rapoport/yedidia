@@ -5,6 +5,7 @@ import imageIcon from "../../assets/imageIcon.svg"
 import theme from "../../theme"
 import { StyledTile } from "../../sharedStyle"
 
+//[ ] add loader while image is loaded from the server
 interface PictureProps {
   images?: PatientImage[] | undefined
   onInput: (e: ChangeEvent<HTMLInputElement>) => void
@@ -139,3 +140,4 @@ export const Picture = ({ images, onInput, setImages }: PictureProps) => {
     </>
   )
 }
+//[ ] on the small - make sure the also add padding to the right, as in the figma

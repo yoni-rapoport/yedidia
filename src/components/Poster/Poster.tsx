@@ -23,6 +23,7 @@ interface PosterProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   setImages: Dispatch<SetStateAction<PatientImage[] | undefined>>
 }
+//[ ] V2 - open and close of text or image modal should slide in and out
 export const Poster = ({
   patient,
   images,
@@ -68,6 +69,9 @@ export const Poster = ({
         break
     }
   }
+  //[ ] always show the 6 pack as 2 - 2 - 2
+  //[ ] make max width, so that also on pc, it'll look like the six pack
+  //[ ] You can move sidebar to more inner component
   return (
     <>
       <CustomBox>

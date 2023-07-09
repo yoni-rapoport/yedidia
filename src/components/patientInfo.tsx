@@ -93,6 +93,7 @@ export default function PatientInfo() {
 
   if (!patient || !answers) return <>טוען</>
   async function save() {
+    //[ ] - loader
     try {
       let saving = []
       if (!(patient instanceof Patient))

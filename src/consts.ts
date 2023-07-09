@@ -1,4 +1,4 @@
-export const allText: { [key: string]: string } = {
+export const allText = {
   niceToMeetTitle: "נעים להכיר",
   niceToMeet1:
     "בשביל חווית אשפוז נעימה ואישית יותר, וליצירת קשר והיכרות, נשמח לעזור להנעים את השהות במחלקה ולהוסיף משהו משלך לחדר.",

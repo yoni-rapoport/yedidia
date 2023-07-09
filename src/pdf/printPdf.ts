@@ -33,7 +33,7 @@ export async function printPdf(
   }
   for (const image of images) {
     let pos = imagePosition.shift()
-    if (pos) {
+    if (pos&&image.image) {
       drawImage(image, pos.x, pos.y)
     }
   }
