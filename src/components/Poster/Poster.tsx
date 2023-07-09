@@ -23,6 +23,7 @@ interface PosterProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   setImages: Dispatch<SetStateAction<PatientImage[] | undefined>>
 }
+//[ ] V2 - open and close of text or image modal should slide in and out
 export const Poster = ({
   patient,
   images,

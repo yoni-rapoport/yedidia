@@ -40,6 +40,7 @@ export function PatientSignIn() {
       } else {
         const user = await SignInController.patientSignIn(params.id!)
         remult.user = user
+        //[ ] - instead of automatically navigating to patients/ show the naim leakir landing page
         navigate("/patients/" + remult.user.id)
       }
     })()
