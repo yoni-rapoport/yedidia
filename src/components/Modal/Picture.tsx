@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react"
 import { PatientImage } from "../../model/PatientImage"
-import { CustomBox } from "../Poster/PosterBlock"
+import { WrapperBox } from "../Poster/PosterBlock"
 import { Avatar, Box, Typography, styled } from "@mui/material"
 import imageIcon from "../../assets/imageIcon.svg"
 import theme from "../../theme"
@@ -38,52 +38,69 @@ export const Picture = ({ images, onInput, setImages }: PictureProps) => {
 
   return (
     <>
-      <h2>מומלץ לבחור בתמונה שמייצגת אותך היטב</h2>
-      <CustomBox
+      <Typography fontSize={22}>
+        מומלץ לבחור בתמונה שמייצגת אותך היטב
+      </Typography>
+      <WrapperBox
         customStyle={{
           display: "flex",
           marginLeft: "auto",
           marginRight: "auto",
           width: 300,
-          height: isImageExits ? 320 : 200,
+          height: !isImageExits ? 315 : 200,
           maxWidth: 300,
-          maxHight: "100%",
+          maxHeight: 315,
         }}
       >
         {!images && <>טוען תמונות...</>}
         {!isImageExits && (
-          <>
-            <Avatar
-              onClick={uploadImage}
-              src={imageIcon}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <Box
               sx={{
-                backgroundColor: theme.palette.primary.main,
-                width: 64,
-                height: 64,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
-              imgProps={{ sx: { width: "45px", height: "30px" } }}
-            />
-            <Typography>העלאת תמונה</Typography>
-            <input
-              type="file"
-              onInput={onInput}
-              accept="image/*"
-              multiple={true}
-              ref={hiddenFileInput}
-              style={{
-                display: "none",
-                height: "100%",
-                width: "100%",
-                position: "absolute",
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                opacity: 0,
-                cursor: "pointer",
-              }}
-            />
-          </>
+            >
+              <Avatar
+                onClick={uploadImage}
+                src={imageIcon}
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  width: 64,
+                  height: 64,
+                }}
+                imgProps={{ sx: { width: "45px", height: "30px" } }}
+              />
+              <Typography>העלאת תמונה</Typography>
+              <input
+                type="file"
+                onInput={onInput}
+                accept="image/*"
+                multiple={true}
+                ref={hiddenFileInput}
+                style={{
+                  display: "none",
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  opacity: 0,
+                  cursor: "pointer",
+                }}
+              />
+            </Box>
+          </Box>
         )}
 
         {images
@@ -114,9 +131,11 @@ export const Picture = ({ images, onInput, setImages }: PictureProps) => {
               </div>
             )
           })}
-      </CustomBox>
+      </WrapperBox>
       {!isImageExits && (
-        <h2>לא מצאת? אפשר אפשר לשלוח בקשה לאדם אחר שיעלה תמונה.</h2>
+        <Typography fontSize={22}>
+          לא מצאת? אפשר אפשר לשלוח בקשה לאדם אחר שיעלה תמונה.
+        </Typography>
       )}
     </>
   )

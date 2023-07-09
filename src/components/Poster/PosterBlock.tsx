@@ -108,7 +108,7 @@ export const PosterBlock = ({
   )
 }
 
-const WrapperBox = styled(Box, {
+export const WrapperBox = styled(Box, {
   shouldForwardProp: (prop) =>
     prop !== "blockImage" && prop !== "customStyle" && prop !== "blockText",
 })<StyledBoxProps>(({ customStyle, blockImage, blockText }) => {

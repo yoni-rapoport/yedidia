@@ -75,11 +75,11 @@ const CustomModal = ({
           <Box sx={{ padding: "0.1rem 1.875rem" }}>{children}</Box>
         </Box>
         <ButtonRapper>
-          <Button variant="contained" onClick={save}>
-            אישור
-          </Button>
           <Button variant="outlined" onClick={handleClose}>
             ביטול
+          </Button>
+          <Button variant="contained" onClick={save}>
+            אישור
           </Button>
         </ButtonRapper>
       </Box>
