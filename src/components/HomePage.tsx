@@ -52,7 +52,7 @@ const CustomParagraph = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: 20,
   fontWeight: 400,
   lineHeight: "24px",
-  fontFamily: "Roboto",
+  fontFamily: "Rubik",
   width: "100%",
   margin: "1rem 0 0 1rem",
 }))
