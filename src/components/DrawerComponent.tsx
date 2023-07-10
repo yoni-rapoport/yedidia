@@ -20,9 +20,15 @@ import shareIcon from "../assets/shareIcon.svg"
 import serviceIcon from "../assets/serviceIcon.svg"
 import terms from "../assets/terms.svg"
 import exit from "../assets/exit.svg"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { CustomLink } from "./Common/CustomLink"
 import useToggle from "../hooks/useToggle"
+import { remult } from "remult"
+import { Roles } from "../model/roles"
+import { copyLink, sendAsEmail, sendSmsToFamily } from "../utils/helpers"
+import { Patient } from "../model/patient"
+import { PatientAnswer } from "../model/PatientAnswer"
+import { PatientImage } from "../model/PatientImage"
 
 interface List {
   name: string
@@ -45,8 +51,16 @@ const listToRender: List[] = [
 interface StyledListItemButtonProps extends ListItemButtonProps {
   isLocation?: boolean
 }
-
-export const DrawerComponent = () => {
+interface DrawerComponentProps {
+  patient: Patient
+  answers: PatientAnswer[]
+  images?: PatientImage[]
+}
+export const DrawerComponent = ({
+  patient,
+  answers,
+  images,
+}: DrawerComponentProps) => {
   const { isOpen, toggle } = useToggle()
   const location = useLocation()
 
@@ -80,6 +94,25 @@ export const DrawerComponent = () => {
           </div>
         ))}
       </List>
+      <Box display="flex" flexDirection="column">
+        {remult.isAllowed(Roles.department) && (
+          <button onClick={() => copyLink(patient)}>
+            העתק קישור להשלמת פרטים
+          </button>
+        )}
+
+        {remult.isAllowed(Roles.department) && (
+          <button onClick={() => sendSmsToFamily(patient, answers, images)}>
+            שלח SMS להשלמת פרטים
+          </button>
+        )}
+        {remult.isAllowed(Roles.department) && (
+          <button onClick={() => sendAsEmail(patient, answers, images)}>
+            שלח במייל
+          </button>
+        )}
+        <Link to="/signIn">כניסת מנהל</Link>
+      </Box>
     </Box>
   )
 

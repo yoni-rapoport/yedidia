@@ -16,9 +16,9 @@ export const HomePage = () => {
       }}
     >
       {
-        //[ ] - figure out why font is wrong
+        //[x] - figure out why font is wrong
       }
-      <Title >{allText.niceToMeetTitle}</Title>
+      <Title>{allText.niceToMeetTitle}</Title>
       <CustomParagraph>{allText.niceToMeet1}</CustomParagraph>
       <CustomParagraph>
         {allText.niceToMeet2}

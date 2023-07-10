@@ -14,7 +14,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Roles } from "./model/roles"
 import PatientInfo from "./components/patientInfo"
 import { departmentsRoute } from "./utils"
-import { DrawerComponent } from "./components/DrawerComponent"
 import { ThemeProvider } from "@mui/material"
 import theme from "./theme"
 
@@ -50,9 +49,8 @@ function App() {
         <>
           <HomePage />
           {
-            //[ ] - move to side bar bottom
+            //[x] - move to side bar bottom
           }
-          <Link to="/signIn">כניסת מנהל</Link>
         </>
       )
     } else if (remult.isAllowed(Roles.admin)) {
@@ -86,7 +84,7 @@ function App() {
                 <button onClick={signOut}>יציאה</button>
               </div>
             )}
-            <DrawerComponent />
+
             <Routes>
               <Route path="/patients/:id" element={<PatientInfo />} />
               <Route path="/patientSignIn/:id" element={<PatientSignIn />} />

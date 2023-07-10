@@ -4,13 +4,13 @@ import { Patient } from "../model/patient"
 import { PatientImage } from "../model/PatientImage"
 import { PatientAnswer } from "../model/PatientAnswer"
 import { remult } from "remult"
-import { printPdf } from "../pdf/printPdf"
-import UtilsController from "../server/utilsController"
 import { Roles } from "../model/roles"
 import { departmentsRoute } from "../utils"
-import copy from "copy-to-clipboard"
-
 import { Poster } from "./Poster/Poster"
+import { Box, Button, Divider } from "@mui/material"
+import { print, save } from "../utils/helpers"
+import { DrawerComponent } from "./DrawerComponent"
+import { CheckIcon } from "../assets/check"
 
 export default function PatientInfo() {
   const params = useParams()
@@ -92,53 +92,10 @@ export default function PatientInfo() {
   }
 
   if (!patient || !answers) return <>טוען</>
-  async function save() {
-    //[ ] - loader
-    try {
-      let saving = []
-      if (!(patient instanceof Patient))
-        saving.push(remult.repo(Patient).save(patient!))
-      for (const a of answers!) {
-        if (!(a instanceof PatientAnswer))
-          saving.push(remult.repo(PatientAnswer).save(a))
-      }
-      for (const i of images!) {
-        if (!(i instanceof PatientImage))
-          saving.push(remult.repo(PatientImage).save(i))
-      }
-      await Promise.all(saving)
-
-      return true
-    } catch (error: any) {
-      alert(error.message)
-      return false
-    }
-  }
-  async function print() {
-    if (!(await save())) return
-    printPdf(patient!, answers!, images!)
-  }
-  async function sendAsEmail() {
-    if (!(await save())) return
-    const to = prompt("למי לשלוח את המייל?", "yedidia.blonder@gmail.com")
-    alert(await UtilsController.sendPdfAsEmail(patient!.id, to!))
-  }
-  async function sendSmsToFamily() {
-    if (!(await save())) return
-    const to = prompt("לאיזה מספר לשלוח את הSMS?", "0526916674")
-    try {
-      alert(await UtilsController.sendSmsToFamilyMember(patient!.id, to!))
-    } catch (error: any) {
-      alert(error.message)
-    }
-  }
-  function copyLink() {
-    copy(Patient.getSignInUrl(patient!))
-    alert("הקישור הועתק")
-  }
 
   return (
     <>
+      <DrawerComponent patient={patient} answers={answers} images={images} />
       {remult.isAllowed(Roles.department) && (
         <Link
           to={
@@ -157,24 +114,42 @@ export default function PatientInfo() {
         patient={patient}
         images={images}
         onInput={(e: ChangeEvent<HTMLInputElement>) => onFileInput(e)}
-        save={save}
+        save={() => save(patient, answers, images)}
         setImages={setImages}
       />
-      <main>
-        <div>
-          <button onClick={save}>שמור</button>
-          {remult.isAllowed(Roles.department) && (
-            <button onClick={sendSmsToFamily}>שלח SMS להשלמת פרטים</button>
-          )}
-          {remult.isAllowed(Roles.department) && (
-            <button onClick={copyLink}>העתק קישור להשלמת פרטים</button>
-          )}
-          <button onClick={print}>הדפס</button>
-          {remult.isAllowed(Roles.department) && (
-            <button onClick={sendAsEmail}>שלח במייל</button>
-          )}
-        </div>
-      </main>
+      <Box
+        sx={{
+          backgroundColor: "rgb(240,240,240)",
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+        }}
+      >
+        <Divider />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            padding: " 16px",
+          }}
+        >
+          <Button
+            variant="outlined"
+            onClick={() => save(patient, answers, images)}
+          >
+            שמירה
+          </Button>
+
+          <Button
+            // disabled={answers[]}
+            variant="contained"
+            onClick={() => print(patient, answers, images)}
+            startIcon={<CheckIcon />}
+          >
+            סיום והדפסה
+          </Button>
+        </Box>
+      </Box>
     </>
   )
 }

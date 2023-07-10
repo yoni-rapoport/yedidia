@@ -8,10 +8,10 @@ import {
 } from "@mui/material"
 import { PatientImage } from "../../model/PatientImage"
 import edit from "../../assets/edit.svg"
-import check from "../../assets/check.svg"
 import { modalTitles } from "../../consts"
 import { TypographyProps } from "@mui/system"
 import { StyledTile } from "../../sharedStyle"
+import { CheckIcon } from "../../assets/check"
 interface PosterBlockProps {
   title: string
   icon?: string
@@ -37,8 +37,7 @@ export const PosterBlock = ({
         <Box display="flex">
           {title === modalTitles.name && (
             <Box sx={{ paddingRight: "0.2rem" }}>
-              {" "}
-              <img src={check} />
+              <CheckIcon color="success" />
             </Box>
           )}
           <DisplayTextOnBlock title={title}>{blockText}</DisplayTextOnBlock>
@@ -46,7 +45,7 @@ export const PosterBlock = ({
       )
     }
     if (blockImage && blockImage.image) {
-      return <img src={blockImage.image} height="72px" width="120px" />
+      return <img src={blockImage.image} height="93.238px" width="98.27px" />
     }
     return <Typography>{title}</Typography>
   }
@@ -67,8 +66,10 @@ export const PosterBlock = ({
 
       <Box
         sx={{
+          display: blockImage?.image ? "flex" : "block",
           overflow: "hidden",
-          width: " 100%",
+          width: "100%",
+          justifyContent: blockImage?.image ? "end" : "unset",
         }}
       >
         {blockText && title !== modalTitles.name && (
@@ -82,7 +83,7 @@ export const PosterBlock = ({
             >
               <>
                 <Box flexGrow={1}>
-                  <img src={check} />
+                  <CheckIcon color="success" />
                 </Box>
 
                 <Typography flexGrow={2}>{title}</Typography>
