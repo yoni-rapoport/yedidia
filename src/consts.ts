@@ -12,9 +12,6 @@ export const allText = {
 export enum modalTitles {
   name = "שם (או כינוי)",
   myPicture = "התמונה שלי",
-  aboutMe = "קצת עלי",
-  importantToMe = "חשוב לי",
   happyPicture = "תמונה משמחת",
   anotherPicture = "עוד תמונה",
-  sayThanks = "להגיד תודה",
 }
