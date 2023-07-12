@@ -4,11 +4,9 @@ import editIcon from "../../assets/editIcon.svg"
 import { Box, BoxProps, styled } from "@mui/material"
 import { Patient } from "../../model/patient"
 import { PatientImage } from "../../model/PatientImage"
-import { ComponentToRender } from "../../types"
 import CustomModal from "../Modal/CustomModal"
 import useToggle from "../../hooks/useToggle"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
-import { Text } from "../Modal/Text"
 import { Picture } from "../Modal/Picture"
 import { PatientName } from "../Modal/PatientName"
 import { SayThanks } from "../Modal/SayThanks"
@@ -33,41 +31,12 @@ export const Poster = ({
   setImages,
 }: PosterProps) => {
   const { isOpen, setClose, setOpen } = useToggle()
-  const [componentType, setComponentType] = useState<ComponentToRender>()
+  const [componentType, setComponentType] = useState<JSX.Element>()
   const [modalTitle, setModalTitle] = useState<string>("")
-  const handleOpenModal = (type: ComponentToRender, title: string) => {
+  const handleOpenModal = (type: JSX.Element, title: string) => {
     setComponentType(type)
     setModalTitle(title)
     setOpen()
-  }
-
-  const getPageToDisplay = (key?: ComponentToRender) => {
-    switch (key) {
-      case ComponentToRender.TEXT:
-        return <Text value={patient?.name} onChange={onChange} />
-      case ComponentToRender.PICTURE:
-        return (
-          <Picture images={images} onInput={onInput} setImages={setImages} />
-        )
-      case ComponentToRender.PATIENT_NAME:
-        return (
-          <PatientName
-            name={patient?.name}
-            roomNumber={patient?.roomNumber}
-            onChange={onChange}
-          />
-        )
-      case ComponentToRender.SAY_THANKS:
-        return <SayThanks value={patient?.sayThanks} onChange={onChange} />
-      case ComponentToRender.ABOUT_ME:
-        return <AboutMe value={patient?.aboutMe} onChange={onChange} />
-      case ComponentToRender.IMPORTANT_TO_ME:
-        return (
-          <ImportantToMe value={patient?.importantToMe} onChange={onChange} />
-        )
-      default:
-        break
-    }
   }
   return (
     <>
@@ -85,7 +54,14 @@ export const Poster = ({
             patient?.name ? `${patient?.name} (חדר ${patient?.roomNumber})` : ""
           }
           onClick={() =>
-            handleOpenModal(ComponentToRender.PATIENT_NAME, modalTitles.name)
+            handleOpenModal(
+              <PatientName
+                name={patient?.name}
+                roomNumber={patient?.roomNumber}
+                onChange={onChange}
+              />,
+              modalTitles.name
+            )
           }
           className="grid-item"
         />
@@ -94,7 +70,14 @@ export const Poster = ({
           icon={imageIcon}
           blockImage={images?.[0]}
           onClick={() =>
-            handleOpenModal(ComponentToRender.PICTURE, modalTitles.myPicture)
+            handleOpenModal(
+              <Picture
+                images={images}
+                onInput={onInput}
+                setImages={setImages}
+              />,
+              modalTitles.myPicture
+            )
           }
           className="grid-item"
         />
@@ -103,7 +86,10 @@ export const Poster = ({
           icon={editIcon}
           blockText={patient?.aboutMe}
           onClick={() =>
-            handleOpenModal(ComponentToRender.ABOUT_ME, modalTitles.aboutMe)
+            handleOpenModal(
+              <AboutMe value={patient?.aboutMe} onChange={onChange} />,
+              modalTitles.aboutMe
+            )
           }
           className="grid-item"
         />
@@ -113,7 +99,10 @@ export const Poster = ({
           blockText={patient?.importantToMe}
           onClick={() =>
             handleOpenModal(
-              ComponentToRender.IMPORTANT_TO_ME,
+              <ImportantToMe
+                value={patient?.importantToMe}
+                onChange={onChange}
+              />,
               modalTitles.importantToMe
             )
           }
@@ -124,7 +113,14 @@ export const Poster = ({
           icon={imageIcon}
           blockImage={images?.[1]}
           onClick={() =>
-            handleOpenModal(ComponentToRender.PICTURE, modalTitles.myPicture)
+            handleOpenModal(
+              <Picture
+                images={images}
+                onInput={onInput}
+                setImages={setImages}
+              />,
+              modalTitles.myPicture
+            )
           }
           className="grid-item"
         />
@@ -135,7 +131,11 @@ export const Poster = ({
           blockImage={images?.[2]}
           onClick={() =>
             handleOpenModal(
-              ComponentToRender.PICTURE,
+              <Picture
+                images={images}
+                onInput={onInput}
+                setImages={setImages}
+              />,
               modalTitles.anotherPicture
             )
           }
@@ -146,11 +146,15 @@ export const Poster = ({
           icon={editIcon}
           blockText={patient?.sayThanks}
           onClick={() =>
-            handleOpenModal(ComponentToRender.SAY_THANKS, modalTitles.sayThanks)
+            handleOpenModal(
+              <SayThanks value={patient?.sayThanks} onChange={onChange} />,
+              modalTitles.sayThanks
+            )
           }
           className="grid-item"
         />
       </CustomBox>
+      ````
       <CustomModal
         open={isOpen}
         handleClose={setClose}
@@ -160,7 +164,7 @@ export const Poster = ({
         }}
         modalTitle={modalTitle}
       >
-        {getPageToDisplay(componentType)}
+        {componentType}
       </CustomModal>
     </>
   )
