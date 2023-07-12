@@ -8,7 +8,7 @@ import { Poster } from "./Poster/Poster"
 import { Box, Button, Divider } from "@mui/material"
 import { print, save } from "../utils/helpers"
 import { DrawerComponent } from "./DrawerComponent"
-import { CheckIcon } from "../assets/check"
+import { CheckIcon } from "../assets/Check"
 
 export default function PatientInfo({ signOut }: { signOut: VoidFunction }) {
   const params = useParams()
@@ -99,12 +99,17 @@ export default function PatientInfo({ signOut }: { signOut: VoidFunction }) {
         images={images}
         signOut={signOut}
       />
-    
 
       <Poster
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setPatient({ ...patient, [e.target.name]: e.target.value })
         }
+        answers={answers}
+        setAnswer={(i, text) => {
+          const newAnswers = [...answers!]
+          newAnswers[i] = { ...newAnswers[i], text }
+          setAnswers(newAnswers)
+        }}
         patient={patient}
         images={images}
         onInput={(e: ChangeEvent<HTMLInputElement>) => onFileInput(e)}

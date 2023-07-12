@@ -11,7 +11,7 @@ import edit from "../../assets/edit.svg"
 import { modalTitles } from "../../consts"
 import { TypographyProps } from "@mui/system"
 import { StyledTile } from "../../sharedStyle"
-import { CheckIcon } from "../../assets/check"
+import { CheckIcon } from "../../assets/Check"
 interface PosterBlockProps {
   title: string
   icon?: string

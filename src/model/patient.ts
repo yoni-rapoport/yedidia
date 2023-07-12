@@ -55,12 +55,6 @@ export class Patient {
   @Fields.string({ validate: Validators.required })
   roomNumber = ""
   @Fields.string()
-  sayThanks = ""
-  @Fields.string()
-  aboutMe = ""
-  @Fields.string()
-  importantToMe = ""
-  @Fields.string()
   departmentId = ""
   @Fields.string()
   url = ""

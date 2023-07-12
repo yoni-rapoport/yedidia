@@ -1,6 +1,5 @@
 import { PosterBlock } from "./PosterBlock"
 import imageIcon from "../../assets/imageIcon.svg"
-import editIcon from "../../assets/editIcon.svg"
 import { Box, BoxProps, styled } from "@mui/material"
 import { Patient } from "../../model/patient"
 import { PatientImage } from "../../model/PatientImage"
@@ -9,13 +8,14 @@ import useToggle from "../../hooks/useToggle"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Picture } from "../Modal/Picture"
 import { PatientName } from "../Modal/PatientName"
-import { SayThanks } from "../Modal/SayThanks"
-import { AboutMe } from "../Modal/AboutMe"
-import { ImportantToMe } from "../Modal/ImportantToMe"
 import { modalTitles } from "../../consts"
+import { PatientAnswer } from "../../model/PatientAnswer"
+import TextBlock from "./TextBlock"
 interface PosterProps {
   patient?: Patient
   images?: PatientImage[]
+  answers: PatientAnswer[]
+  setAnswer: (index: number, text: string) => void
   save: () => Promise<boolean>
   onInput: (e: ChangeEvent<HTMLInputElement>) => void
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -29,6 +29,8 @@ export const Poster = ({
   onInput,
   onChange,
   setImages,
+  answers,
+  setAnswer,
 }: PosterProps) => {
   const { isOpen, setClose, setOpen } = useToggle()
   const [componentType, setComponentType] = useState<JSX.Element>()
@@ -38,6 +40,7 @@ export const Poster = ({
     setModalTitle(title)
     setOpen()
   }
+
   return (
     <>
       <CustomBox>
@@ -81,32 +84,15 @@ export const Poster = ({
           }
           className="grid-item"
         />
-        <PosterBlock
-          title={modalTitles.aboutMe}
-          icon={editIcon}
-          blockText={patient?.aboutMe}
-          onClick={() =>
-            handleOpenModal(
-              <AboutMe value={patient?.aboutMe} onChange={onChange} />,
-              modalTitles.aboutMe
-            )
-          }
-          className="grid-item"
+        <TextBlock
+          answer={answers[0]}
+          handleOpenModal={handleOpenModal}
+          setAnswer={setAnswer}
         />
-        <PosterBlock
-          title={modalTitles.importantToMe}
-          icon={editIcon}
-          blockText={patient?.importantToMe}
-          onClick={() =>
-            handleOpenModal(
-              <ImportantToMe
-                value={patient?.importantToMe}
-                onChange={onChange}
-              />,
-              modalTitles.importantToMe
-            )
-          }
-          className="grid-item"
+        <TextBlock
+          answer={answers[1]}
+          handleOpenModal={handleOpenModal}
+          setAnswer={setAnswer}
         />
         <PosterBlock
           title={modalTitles.myPicture}
@@ -141,17 +127,10 @@ export const Poster = ({
           }
           className="grid-item"
         />
-        <PosterBlock
-          title={modalTitles.sayThanks}
-          icon={editIcon}
-          blockText={patient?.sayThanks}
-          onClick={() =>
-            handleOpenModal(
-              <SayThanks value={patient?.sayThanks} onChange={onChange} />,
-              modalTitles.sayThanks
-            )
-          }
-          className="grid-item"
+        <TextBlock
+          answer={answers[2]}
+          handleOpenModal={handleOpenModal}
+          setAnswer={setAnswer}
         />
       </CustomBox>
       ````

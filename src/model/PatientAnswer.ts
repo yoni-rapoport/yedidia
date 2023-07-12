@@ -20,3 +20,20 @@ export class PatientAnswer {
   @Fields.string()
   text = ""
 }
+export const answersTitle = [
+  {
+    shortTitle: "קצת עלי",
+    title: "זה המקום לספר על עצמך ועל תחומי העניין שלך",
+    helperText: "למשל: מקצוע, שפה, תחביבים, טעם מוזיקלי...",
+  },
+  {
+    shortTitle: "חשוב לי",
+    title: "מה משמעותי בשבילך?",
+    helperText: "אירוע, תרבות, משפחה, אמונה או כל דבר אחר",
+  },
+  {
+    shortTitle: "להגיד תודה",
+    title: "על אילו דברים היית רוצה להגיד תודה? למי מגיעה תודה ממך?",
+    helperText: "למשל: למשפחה, לחברים, על הטיפול המסור של...",
+  },
+]
