@@ -51,6 +51,7 @@ export class Patient {
   id = ""
   @Fields.string({ validate: Validators.required })
   name = ""
+  //[ ] - הם ביקשו שזה יהיה שדה חובה?
   @Fields.string({ validate: Validators.required })
   roomNumber = ""
   @Fields.string()

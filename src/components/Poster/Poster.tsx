@@ -69,9 +69,6 @@ export const Poster = ({
         break
     }
   }
-  //[x] always show the 6 pack as 2 - 2 - 2
-  //[x] make max width, so that also on pc, it'll look like the six pack
-  //[x] You can move sidebar to more inner component
   return (
     <>
       <CustomBox>
