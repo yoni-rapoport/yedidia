@@ -101,11 +101,9 @@ export default function PatientInfo({ signOut }: { signOut: VoidFunction }) {
       />
 
       <Poster
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setPatient((prev) =>
-            prev ? { ...prev, [e.target.name]: e.target.value } : patient
-          )
-        }}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setPatient({ ...patient, [e.target.name]: e.target.value })
+        }
         answers={answers}
         setAnswer={(i, text) => {
           const newAnswers = [...answers!]
