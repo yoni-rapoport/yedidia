@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material"
-import { ChangeEvent } from "react"
+import { ChangeEvent, useState } from "react"
 import { ModalTitle } from "../Common/ModalTitle"
 
 interface PatientNameProps {
@@ -13,6 +13,19 @@ export const PatientName = ({
   name,
   roomNumber,
 }: PatientNameProps) => {
+  const [nameState, setNameState] = useState(name)
+  const [roomState, setRoomState] = useState(roomNumber)
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNameState(e.target.value)
+    onChange(e)
+  }
+
+  const handleRoomChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRoomState(e.target.value)
+    onChange(e)
+  }
+
   return (
     <>
       <ModalTitle title=" באיזה שם או כינוי היית רוצה שהצוות הרפואי יקרא לך?" />
@@ -23,9 +36,9 @@ export const PatientName = ({
         color="primary"
         fullWidth
         margin="normal"
-        value={name}
+        value={nameState}
         name="name"
-        onChange={onChange}
+        onChange={handleNameChange}
       />
       <TextField
         label="מספר חדר"
@@ -33,10 +46,10 @@ export const PatientName = ({
         color="primary"
         fullWidth
         margin="normal"
-        onChange={onChange}
+        onChange={handleRoomChange}
         name="roomNumber"
         type="text"
-        value={roomNumber}
+        value={roomState}
       />
     </>
   )
