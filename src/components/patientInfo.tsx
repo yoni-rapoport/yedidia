@@ -12,7 +12,7 @@ import { print, save } from "../utils/helpers"
 import { DrawerComponent } from "./DrawerComponent"
 import { CheckIcon } from "../assets/check"
 
-export default function PatientInfo() {
+export default function PatientInfo({ signOut }: { signOut: VoidFunction }) {
   const params = useParams()
   const [patient, setPatient] = useState<Patient>()
   const [answers, setAnswers] = useState<PatientAnswer[]>()
@@ -95,17 +95,13 @@ export default function PatientInfo() {
 
   return (
     <>
-      <DrawerComponent patient={patient} answers={answers} images={images} />
-      {remult.isAllowed(Roles.department) && (
-        <Link
-          to={
-            departmentsRoute + patient?.departmentId ||
-            remult.user!.departmentId
-          }
-        >
-          חזרה לרשימת המטופלים
-        </Link>
-      )}
+      <DrawerComponent
+        patient={patient}
+        answers={answers}
+        images={images}
+        signOut={signOut}
+      />
+    
 
       <Poster
         onChange={(e: ChangeEvent<HTMLInputElement>) =>

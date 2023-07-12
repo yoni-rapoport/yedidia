@@ -15,9 +15,6 @@ export const HomePage = () => {
         alignItems: "center",
       }}
     >
-      {
-        //[x] - figure out why font is wrong
-      }
       <Title>{allText.niceToMeetTitle}</Title>
       <CustomParagraph>{allText.niceToMeet1}</CustomParagraph>
       <CustomParagraph>

@@ -48,9 +48,6 @@ function App() {
       return (
         <>
           <HomePage />
-          {
-            //[x] - move to side bar bottom
-          }
         </>
       )
     } else if (remult.isAllowed(Roles.admin)) {
@@ -72,21 +69,11 @@ function App() {
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
-            {remult.authenticated() && (
-              <div>
-                שלום {remult.user?.name} (
-                {remult.isAllowed(Roles.admin)
-                  ? "מנהל"
-                  : remult.isAllowed(Roles.department)
-                  ? "מחלקה"
-                  : "מטופל"}
-                ){"  "}
-                <button onClick={signOut}>יציאה</button>
-              </div>
-            )}
-
             <Routes>
-              <Route path="/patients/:id" element={<PatientInfo />} />
+              <Route
+                path="/patients/:id"
+                element={<PatientInfo signOut={signOut} />}
+              />
               <Route path="/patientSignIn/:id" element={<PatientSignIn />} />
               <Route
                 path="/departmentSignIn/:id"
@@ -123,6 +110,3 @@ function App() {
 }
 
 export default App
-
-//TODO - העתק קישור למטופל
-//TODO - ערוך מטופל

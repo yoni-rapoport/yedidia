@@ -29,6 +29,7 @@ import { copyLink, sendAsEmail, sendSmsToFamily } from "../utils/helpers"
 import { Patient } from "../model/patient"
 import { PatientAnswer } from "../model/PatientAnswer"
 import { PatientImage } from "../model/PatientImage"
+import { departmentsRoute } from "../utils"
 
 interface List {
   name: string
@@ -55,11 +56,13 @@ interface DrawerComponentProps {
   patient: Patient
   answers: PatientAnswer[]
   images?: PatientImage[]
+  signOut: VoidFunction
 }
 export const DrawerComponent = ({
   patient,
   answers,
   images,
+  signOut,
 }: DrawerComponentProps) => {
   const { isOpen, toggle } = useToggle()
   const location = useLocation()
@@ -111,7 +114,29 @@ export const DrawerComponent = ({
             שלח במייל
           </button>
         )}
-        <Link to="/signIn">כניסת מנהל</Link>
+        {remult.authenticated() && (
+          <div>
+            שלום {remult.user?.name} (
+            {remult.isAllowed(Roles.admin)
+              ? "מנהל"
+              : remult.isAllowed(Roles.department)
+              ? "מחלקה"
+              : "מטופל"}
+            ){"  "}
+            <button onClick={signOut}>יציאה</button>
+          </div>
+        )}
+        {remult.isAllowed(Roles.department) && (
+          <Link
+            to={
+              departmentsRoute + patient?.departmentId ||
+              remult.user!.departmentId
+            }
+          >
+            חזרה לרשימת המטופלים
+          </Link>
+        )}
+        {/* <Link to="/signIn">כניסת מנהל</Link> */}
       </Box>
     </Box>
   )
