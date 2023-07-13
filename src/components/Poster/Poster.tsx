@@ -1,25 +1,25 @@
-import { PosterBlock } from "./PosterBlock"
-import imageIcon from "../../assets/imageIcon.svg"
-import { Box, BoxProps, styled } from "@mui/material"
-import { Patient } from "../../model/patient"
-import { PatientImage } from "../../model/PatientImage"
-import CustomModal from "../Modal/CustomModal"
-import useToggle from "../../hooks/useToggle"
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
-import { Picture } from "../Modal/Picture"
-import { PatientName } from "../Modal/PatientName"
-import { modalTitles } from "../../consts"
-import { PatientAnswer } from "../../model/PatientAnswer"
-import TextBlock from "./TextBlock"
+import { PosterBlock } from "./PosterBlock";
+import imageIcon from "../../assets/imageIcon.svg";
+import { Box, BoxProps, styled } from "@mui/material";
+import { Patient } from "../../model/patient";
+import { PatientImage } from "../../model/PatientImage";
+import CustomModal from "../Modal/CustomModal";
+import useToggle from "../../hooks/useToggle";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { Picture } from "../Modal/Picture";
+import { PatientName } from "../Modal/PatientName";
+import { modalTitles } from "../../consts";
+import { PatientAnswer } from "../../model/PatientAnswer";
+import TextBlock from "./TextBlock";
 interface PosterProps {
-  patient?: Patient
-  images?: PatientImage[]
-  answers: PatientAnswer[]
-  setAnswer: (index: number, text: string) => void
-  save: () => Promise<boolean>
-  onInput: (e: ChangeEvent<HTMLInputElement>) => void
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  setImages: Dispatch<SetStateAction<PatientImage[] | undefined>>
+  patient?: Patient;
+  images?: PatientImage[];
+  answers: PatientAnswer[];
+  setAnswer: (index: number, text: string) => void;
+  save: () => Promise<boolean>;
+  onInput: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  setImages: Dispatch<SetStateAction<PatientImage[] | undefined>>;
 }
 //[ ] V2 - open and close of text or image modal should slide in and out
 export const Poster = ({
@@ -32,14 +32,16 @@ export const Poster = ({
   answers,
   setAnswer,
 }: PosterProps) => {
-  const { isOpen, setClose, setOpen } = useToggle()
-  const [componentType, setComponentType] = useState<JSX.Element>()
-  const [modalTitle, setModalTitle] = useState<string>("")
-  const handleOpenModal = (type: JSX.Element, title: string) => {
-    setComponentType(type)
-    setModalTitle(title)
-    setOpen()
-  }
+  const { isOpen, setClose, setOpen } = useToggle();
+  const [componentType, setComponentType] = useState<React.FC<PosterProps>>(
+    () => () => <></>,
+  );
+  const [modalTitle, setModalTitle] = useState<string>("");
+  const handleOpenModal = (type: React.FC<PosterProps>, title: string) => {
+    setComponentType(() => type);
+    setModalTitle(title);
+    setOpen();
+  };
 
   return (
     <>
@@ -53,19 +55,20 @@ export const Poster = ({
             alignItems: `${patient?.name ? "center" : "flex-start"}`,
             justifyContent: `${patient?.name ? "space-between" : "center"}`,
           }}
-          blockText={
-            patient?.name ? `${patient?.name} (חדר ${patient?.roomNumber})` : ""
-          }
+          blockText={patient?.name
+            ? `${patient?.name} (חדר ${patient?.roomNumber})`
+            : ""}
           onClick={() =>
             handleOpenModal(
-              <PatientName
-                name={patient?.name}
-                roomNumber={patient?.roomNumber}
-                onChange={onChange}
-              />,
-              modalTitles.name
-            )
-          }
+              ({ patient, onChange }) => (
+                <PatientName
+                  name={patient?.name}
+                  roomNumber={patient?.roomNumber}
+                  onChange={onChange}
+                />
+              ),
+              modalTitles.name,
+            )}
           className="grid-item"
         />
         <PosterBlock
@@ -74,14 +77,15 @@ export const Poster = ({
           blockImage={images?.[0]}
           onClick={() =>
             handleOpenModal(
-              <Picture
-                images={images}
-                onInput={onInput}
-                setImages={setImages}
-              />,
-              modalTitles.myPicture
-            )
-          }
+              ({ images, onInput, setImages }) => (
+                <Picture
+                  images={images}
+                  onInput={onInput}
+                  setImages={setImages}
+                />
+              ),
+              modalTitles.myPicture,
+            )}
           className="grid-item"
         />
         <TextBlock
@@ -100,14 +104,15 @@ export const Poster = ({
           blockImage={images?.[1]}
           onClick={() =>
             handleOpenModal(
-              <Picture
-                images={images}
-                onInput={onInput}
-                setImages={setImages}
-              />,
-              modalTitles.myPicture
-            )
-          }
+              ({ images, onInput, setImages }) => (
+                <Picture
+                  images={images}
+                  onInput={onInput}
+                  setImages={setImages}
+                />
+              ),
+              modalTitles.myPicture,
+            )}
           className="grid-item"
         />
 
@@ -117,14 +122,15 @@ export const Poster = ({
           blockImage={images?.[2]}
           onClick={() =>
             handleOpenModal(
-              <Picture
-                images={images}
-                onInput={onInput}
-                setImages={setImages}
-              />,
-              modalTitles.anotherPicture
-            )
-          }
+              ({ images, onInput, setImages }) => (
+                <Picture
+                  images={images}
+                  onInput={onInput}
+                  setImages={setImages}
+                />
+              ),
+              modalTitles.anotherPicture,
+            )}
           className="grid-item"
         />
         <TextBlock
@@ -138,16 +144,24 @@ export const Poster = ({
         open={isOpen}
         handleClose={setClose}
         save={() => {
-          save()
-          setClose()
+          save();
+          setClose();
         }}
         modalTitle={modalTitle}
       >
-        {componentType}
+        {componentType({
+          answers,
+          onChange,
+          onInput,
+          save,
+          setAnswer,
+          setImages,
+          patient,
+        })!}
       </CustomModal>
     </>
-  )
-}
+  );
+};
 const CustomBox = styled(Box)<BoxProps>(() => ({
   display: "grid",
   gap: "1rem",
@@ -157,4 +171,4 @@ const CustomBox = styled(Box)<BoxProps>(() => ({
   ".grid-item:first-of-type": {
     gridColumn: "1 / span 2",
   },
-}))
+}));
