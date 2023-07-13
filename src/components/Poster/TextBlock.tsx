@@ -1,20 +1,20 @@
-import { answersTitle, PatientAnswer } from "../../model/PatientAnswer";
-import { ModalTitle } from "../Common/ModalTitle";
-import { TextFieldCounter } from "../Common/TextFiledCounetr";
-import { PosterBlock } from "./PosterBlock";
-import editIcon from "../../assets/editIcon.svg";
-import useCustomModal from "../../hooks/useCustomModal";
+import { answersTitle, PatientAnswer } from "../../model/PatientAnswer"
+import { ModalTitle } from "../Common/ModalTitle"
+import { TextFieldCounter } from "../Common/TextFiledCounetr"
+import { PosterBlock } from "./PosterBlock"
+import editIcon from "../../assets/editIcon.svg"
+import useCustomModal from "../../hooks/useCustomModal"
 
 export default function TextBlock({
   answer,
   save,
   setAnswer,
 }: {
-  answer: PatientAnswer;
-  setAnswer: (index: number, text: string) => void;
-  save: () => Promise<boolean>;
+  answer: PatientAnswer
+  setAnswer: (index: number, text: string) => void
+  save: () => Promise<boolean>
 }) {
-  const titles = answersTitle[answer.index];
+  const titles = answersTitle[answer.index]
 
   const [modal, openModal] = useCustomModal(
     titles.shortTitle,
@@ -32,8 +32,8 @@ export default function TextBlock({
         helperText={titles.helperText}
       />
     </>,
-    save,
-  );
+    save
+  )
 
   return (
     <>
@@ -46,5 +46,5 @@ export default function TextBlock({
       />
       {modal}
     </>
-  );
+  )
 }

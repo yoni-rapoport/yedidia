@@ -1,27 +1,27 @@
-import { PosterBlock } from "./PosterBlock";
-import imageIcon from "../../assets/imageIcon.svg";
-import { Box, BoxProps, styled } from "@mui/material";
-import { Patient } from "../../model/patient";
-import { PatientImage } from "../../model/PatientImage";
-import CustomModal from "../Modal/CustomModal";
-import useToggle from "../../hooks/useToggle";
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { Picture } from "../Modal/Picture";
-import { PatientName } from "../Modal/PatientName";
-import { modalTitles } from "../../consts";
-import { PatientAnswer } from "../../model/PatientAnswer";
-import TextBlock from "./TextBlock";
-import useCustomModal from "../../hooks/useCustomModal";
+import { PosterBlock } from "./PosterBlock"
+import imageIcon from "../../assets/imageIcon.svg"
+import { Box, BoxProps, styled } from "@mui/material"
+import { Patient } from "../../model/patient"
+import { PatientImage } from "../../model/PatientImage"
+import CustomModal from "../Modal/CustomModal"
+import useToggle from "../../hooks/useToggle"
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
+import { Picture } from "../Modal/Picture"
+import { PatientName } from "../Modal/PatientName"
+import { modalTitles } from "../../consts"
+import { PatientAnswer } from "../../model/PatientAnswer"
+import TextBlock from "./TextBlock"
+import useCustomModal from "../../hooks/useCustomModal"
 
 interface PosterProps {
-  patient?: Patient;
-  images?: PatientImage[];
-  answers: PatientAnswer[];
-  setAnswer: (index: number, text: string) => void;
-  save: () => Promise<boolean>;
-  onInput: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  setImages: Dispatch<SetStateAction<PatientImage[] | undefined>>;
+  patient?: Patient
+  images?: PatientImage[]
+  answers: PatientAnswer[]
+  setAnswer: (index: number, text: string) => void
+  save: () => Promise<boolean>
+  onInput: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  setImages: Dispatch<SetStateAction<PatientImage[] | undefined>>
 }
 //[ ] V2 - open and close of text or image modal should slide in and out
 export const Poster = ({
@@ -41,18 +41,14 @@ export const Poster = ({
       roomNumber={patient?.roomNumber}
       onChange={onChange}
     />,
-    save,
-  );
+    save
+  )
 
   const [pictureModal, openPictureModal] = useCustomModal(
     modalTitles.myPicture,
-    <Picture
-      images={images}
-      onInput={onInput}
-      setImages={setImages}
-    />,
-    save,
-  );
+    <Picture images={images} onInput={onInput} setImages={setImages} />,
+    save
+  )
 
   return (
     <>
@@ -66,9 +62,9 @@ export const Poster = ({
             alignItems: `${patient?.name ? "center" : "flex-start"}`,
             justifyContent: `${patient?.name ? "space-between" : "center"}`,
           }}
-          blockText={patient?.name
-            ? `${patient?.name} (חדר ${patient?.roomNumber})`
-            : ""}
+          blockText={
+            patient?.name ? `${patient?.name} (חדר ${patient?.roomNumber})` : ""
+          }
           onClick={() => openPatientNameModal()}
           className="grid-item"
         />
@@ -81,16 +77,8 @@ export const Poster = ({
           className="grid-item"
         />
         {pictureModal}
-        <TextBlock
-          answer={answers[0]}
-          save={save}
-          setAnswer={setAnswer}
-        />
-        <TextBlock
-          answer={answers[1]}
-          save={save}
-          setAnswer={setAnswer}
-        />
+        <TextBlock answer={answers[0]} save={save} setAnswer={setAnswer} />
+        <TextBlock answer={answers[1]} save={save} setAnswer={setAnswer} />
         <PosterBlock
           title={modalTitles.myPicture}
           icon={imageIcon}
@@ -106,15 +94,11 @@ export const Poster = ({
           className="grid-item"
         />
         {pictureModal}
-        <TextBlock
-          answer={answers[2]}
-          save={save}
-          setAnswer={setAnswer}
-        />
+        <TextBlock answer={answers[2]} save={save} setAnswer={setAnswer} />
       </CustomBox>
     </>
-  );
-};
+  )
+}
 const CustomBox = styled(Box)<BoxProps>(() => ({
   display: "grid",
   gap: "1rem",
@@ -124,4 +108,4 @@ const CustomBox = styled(Box)<BoxProps>(() => ({
   ".grid-item:first-of-type": {
     gridColumn: "1 / span 2",
   },
-}));
+}))
