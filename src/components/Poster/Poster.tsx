@@ -11,6 +11,8 @@ import { PatientName } from "../Modal/PatientName";
 import { modalTitles } from "../../consts";
 import { PatientAnswer } from "../../model/PatientAnswer";
 import TextBlock from "./TextBlock";
+import useCustomModal from "../../hooks/useCustomModal";
+
 interface PosterProps {
   patient?: Patient;
   images?: PatientImage[];
@@ -32,16 +34,25 @@ export const Poster = ({
   answers,
   setAnswer,
 }: PosterProps) => {
-  const { isOpen, setClose, setOpen } = useToggle();
-  const [componentType, setComponentType] = useState<React.FC<PosterProps>>(
-    () => () => <></>,
+  const [patientNameModal, openPatientNameModal] = useCustomModal(
+    modalTitles.name,
+    <PatientName
+      name={patient?.name}
+      roomNumber={patient?.roomNumber}
+      onChange={onChange}
+    />,
+    save,
   );
-  const [modalTitle, setModalTitle] = useState<string>("");
-  const handleOpenModal = (type: React.FC<PosterProps>, title: string) => {
-    setComponentType(() => type);
-    setModalTitle(title);
-    setOpen();
-  };
+
+  const [pictureModal, openPictureModal] = useCustomModal(
+    modalTitles.myPicture,
+    <Picture
+      images={images}
+      onInput={onInput}
+      setImages={setImages}
+    />,
+    save,
+  );
 
   return (
     <>
@@ -58,107 +69,49 @@ export const Poster = ({
           blockText={patient?.name
             ? `${patient?.name} (חדר ${patient?.roomNumber})`
             : ""}
-          onClick={() =>
-            handleOpenModal(
-              ({ patient, onChange }) => (
-                <PatientName
-                  name={patient?.name}
-                  roomNumber={patient?.roomNumber}
-                  onChange={onChange}
-                />
-              ),
-              modalTitles.name,
-            )}
+          onClick={() => openPatientNameModal()}
           className="grid-item"
         />
+        {patientNameModal}
         <PosterBlock
           title={modalTitles.myPicture}
           icon={imageIcon}
           blockImage={images?.[0]}
-          onClick={() =>
-            handleOpenModal(
-              ({ images, onInput, setImages }) => (
-                <Picture
-                  images={images}
-                  onInput={onInput}
-                  setImages={setImages}
-                />
-              ),
-              modalTitles.myPicture,
-            )}
+          onClick={() => openPictureModal()}
           className="grid-item"
         />
+        {pictureModal}
         <TextBlock
           answer={answers[0]}
-          handleOpenModal={handleOpenModal}
+          save={save}
           setAnswer={setAnswer}
         />
         <TextBlock
           answer={answers[1]}
-          handleOpenModal={handleOpenModal}
+          save={save}
           setAnswer={setAnswer}
         />
         <PosterBlock
           title={modalTitles.myPicture}
           icon={imageIcon}
           blockImage={images?.[1]}
-          onClick={() =>
-            handleOpenModal(
-              ({ images, onInput, setImages }) => (
-                <Picture
-                  images={images}
-                  onInput={onInput}
-                  setImages={setImages}
-                />
-              ),
-              modalTitles.myPicture,
-            )}
+          onClick={() => openPictureModal()}
           className="grid-item"
         />
-
         <PosterBlock
           title={modalTitles.anotherPicture}
           icon={imageIcon}
           blockImage={images?.[2]}
-          onClick={() =>
-            handleOpenModal(
-              ({ images, onInput, setImages }) => (
-                <Picture
-                  images={images}
-                  onInput={onInput}
-                  setImages={setImages}
-                />
-              ),
-              modalTitles.anotherPicture,
-            )}
+          onClick={() => openPictureModal()}
           className="grid-item"
         />
+        {pictureModal}
         <TextBlock
           answer={answers[2]}
-          handleOpenModal={handleOpenModal}
+          save={save}
           setAnswer={setAnswer}
         />
       </CustomBox>
-      ````
-      <CustomModal
-        open={isOpen}
-        handleClose={setClose}
-        save={() => {
-          save();
-          setClose();
-        }}
-        modalTitle={modalTitle}
-      >
-        {componentType({
-          answers,
-          onChange,
-          onInput,
-          save,
-          setAnswer,
-          setImages,
-          patient,
-        })!}
-      </CustomModal>
     </>
   );
 };
